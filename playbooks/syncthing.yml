@@ -1,0 +1,34 @@
+- hosts: all
+
+  vars:
+    syncthing_service: syncthing@{{ syncthing_user }}.service
+
+  tasks:
+    - apt_key:
+        id: 6ED000654A3E
+        url: https://syncthing.net/release-key.txt
+
+    - apt_repository:
+        repo: deb http://apt.syncthing.net/ syncthing release
+        update_cache: yes
+
+    - apt:
+        name: syncthing=0.13.2
+        update_cache: yes
+        cache_valid_time: 300
+      register: syncthing_package
+
+    - file:
+        src: "files/syncthing@.service"
+        dest: "/etc/systemd/system/syncthing@.service"
+
+    - service:
+        name: {{ syncthing_service }}
+        enabled: yes
+        state: started
+
+    - name: Restart Syncthing after updates
+      service:
+        name: {{ syncthing_service }}
+        state: restarted
+      when: syncthing_package | changed

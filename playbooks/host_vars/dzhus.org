@@ -1,0 +1,3 @@
+# -*- mode: yaml -*-
+
+syncthing_user: dzhus

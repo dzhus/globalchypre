@@ -1,0 +1,82 @@
+- hosts: all
+
+  vars:
+    transmission_user: debian-transmission
+    transmission_group: "{{ transmission_user }}"
+    transmission_dir_prefix: /var/lib/transmission-daemon
+    transmission_downloads_dir: "{{ transmission_dir_prefix }}/downloads"
+    transmission_incomplete_dir: "{{ transmission_dir_prefix }}/incomplete"
+    transmission_watch_dir: "{{ transmission_dir_prefix }}/watch"
+
+  tasks:
+    - apt_key:
+        id: A37DA909AE70535824D82620976B5901365C5CA1
+        keyserver: hkp://keyserver.ubuntu.com:80
+
+    - apt_repository:
+        repo: deb http://ppa.launchpad.net/transmissionbt/ppa/ubuntu {{ ansible_lsb.codename }} main
+        update_cache: yes
+
+    - apt:
+        name: transmission-daemon=2.92*
+        update_cache: yes
+        cache_valid_time: 300
+      notify:
+        - Reload Transmission
+        - Restart Transmission
+
+    - name: Transmission folders
+      file:
+        dest: "{{ item }}"
+        state: directory
+        group: "{{ transmission_group }}"
+        owner: "{{ transmission_user }}"
+        mode:  "4775"
+      with_items:
+        - "{{ transmission_downloads_dir }}"
+        - "{{ transmission_incomplete_dir }}"
+        - "{{ transmission_watch_dir }}"
+
+    - user:
+        name: "{{ syncthing_user }}"
+        groups: "{{ transmission_group }}"
+        append: yes
+
+    - name: Transmission settings
+      lineinfile:
+        dest: "/var/lib/transmission-daemon/info/settings.json"
+        regexp: '(^ +)"{{ item.name }}":[^,]+(,?)'
+        line: '\1"{{ item.name }}": {{ item.value }}\2'
+        backrefs: yes
+      with_items:
+        - name: "download-dir"
+          value: '"{{ transmission_downloads_dir }}"'
+        - name: "incomplete-dir-enabled"
+          value: "true"
+        - name: "incomplete-dir"
+          value: '"{{ transmission_incomplete_dir }}"'
+        - name: "rpc-whitelist-enabled"
+          value: "false"
+        - name: "trash-original-torrent-files"
+          value: "true"
+        - name: "watch-dir"
+          value: '"{{ transmission_watch_dir }}"'
+        - name: "watch-dir-enabled"
+          value: "true"
+      notify: Reload Transmission
+
+    - service:
+        name: transmission-daemon
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: Reload Transmission
+      service:
+        name: transmission-daemon
+        state: reloaded
+
+    - name: Restart Transmission
+      service:
+        name: transmission-daemon
+        state: restarted
