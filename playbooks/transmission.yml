@@ -63,6 +63,8 @@
           value: '"{{ transmission_watch_dir }}"'
         - name: "watch-dir-enabled"
           value: "true"
+        - name: "umask"
+          value: "2"
       notify: Reload Transmission
 
     - service:
