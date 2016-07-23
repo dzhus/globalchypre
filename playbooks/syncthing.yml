@@ -23,12 +23,12 @@
         dest: "/etc/systemd/system/syncthing@.service"
 
     - service:
-        name: {{ syncthing_service }}
+        name: "{{ syncthing_service }}"
         enabled: yes
         state: started
 
     - name: Restart Syncthing after updates
       service:
-        name: {{ syncthing_service }}
+        name: "{{ syncthing_service }}"
         state: restarted
       when: syncthing_package | changed
