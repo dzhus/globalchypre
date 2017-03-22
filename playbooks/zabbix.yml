@@ -1,0 +1,48 @@
+- hosts: all
+  tasks:
+    - apt:
+        name: "{{ item }}"
+        update_cache: yes
+        cache_valid_time: 300
+      with_items:
+        - docker.io
+        - python-pip
+
+    - pip:
+        name: docker-py
+
+    - docker_container:
+        name: zabbix-postgres
+        image: postgres:9.5
+        env:
+          POSTGRES_PASSWORD: zabbix
+          POSTGRES_USER: zabbix
+        restart_policy: always
+        restart_retries: 10
+
+    - docker_container:
+        name: zabbix-server
+        image: zabbix/zabbix-server-pgsql:alpine-latest
+        links:
+          - "zabbix-postgres:postgres-server"
+        env:
+          POSTGRES_PASSWORD: zabbix
+          POSTGRES_USER: zabbix
+        restart_policy: always
+        restart_retries: 10
+
+    - docker_container:
+        name: zabbix-web
+        image: zabbix/zabbix-web-nginx-pgsql:alpine-latest
+        links:
+          - "zabbix-postgres:postgres-server"
+          - "zabbix-server"
+        env:
+          TZ: Europe/Moscow
+          ZBX_SERVER_NAME: "{{ ansible_fqdn }}"
+          POSTGRES_PASSWORD: zabbix
+          POSTGRES_USER: zabbix
+        published_ports:
+          - "34881:80"
+        restart_policy: always
+        restart_retries: 10
