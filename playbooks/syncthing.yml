@@ -5,7 +5,7 @@
 
   tasks:
     - apt_key:
-        id: 6ED000654A3E
+        id: 00654A3E
         url: https://syncthing.net/release-key.txt
 
     - apt_repository:
@@ -13,7 +13,7 @@
         update_cache: yes
 
     - apt:
-        name: syncthing=0.14.0
+        name: syncthing=0.14.7
         update_cache: yes
         cache_valid_time: 300
       register: syncthing_package
