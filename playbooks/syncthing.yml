@@ -13,7 +13,7 @@
         update_cache: yes
 
     - apt:
-        name: syncthing=0.14.7
+        name: syncthing=0.14.25
         update_cache: yes
         cache_valid_time: 300
       register: syncthing_package
