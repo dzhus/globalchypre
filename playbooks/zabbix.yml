@@ -1,5 +1,5 @@
 - hosts: all
-  tasks:
+  pre_tasks:
     - apt:
         name: "{{ item }}"
         update_cache: yes
@@ -19,6 +19,7 @@
           POSTGRES_USER: zabbix
         restart_policy: always
         restart_retries: 10
+      register: zabbix_db
 
     - docker_container:
         name: zabbix-server
@@ -28,8 +29,12 @@
         env:
           POSTGRES_PASSWORD: zabbix
           POSTGRES_USER: zabbix
+        published_ports:
+          - "10051:10051"
         restart_policy: always
         restart_retries: 10
+        recreate: "{{ zabbix_db.changed }}"
+      register: zabbix_server
 
     - docker_container:
         name: zabbix-web
@@ -46,3 +51,10 @@
           - "34881:80"
         restart_policy: always
         restart_retries: 10
+        recreate: "{{ zabbix_server.changed }}"
+
+  roles:
+    - role: dj-wasabi.zabbix-agent
+      agent_server: "172.17.0.4" # TODO Use docker_container.IPAddress here
+      agent_serveractive: "172.17.0.4"
+      agent_hostname: "{{ ansible_fqdn }}"
