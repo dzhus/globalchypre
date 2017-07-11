@@ -16,19 +16,20 @@
         name: syncthing=0.14.25
         update_cache: yes
         cache_valid_time: 300
-      register: syncthing_package
+      notify: Restart Syncthing
 
-    - file:
+    - copy:
         src: "files/syncthing@.service"
         dest: "/etc/systemd/system/syncthing@.service"
+      notify: Restart Syncthing
 
-    - service:
+    - systemd:
         name: "{{ syncthing_service }}"
         enabled: yes
         state: started
 
-    - name: Restart Syncthing after updates
+  handlers:
+    - name: Restart Syncthing
       service:
         name: "{{ syncthing_service }}"
         state: restarted
-      when: syncthing_package | changed
