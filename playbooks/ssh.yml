@@ -1,0 +1,18 @@
+- hosts: all
+  vars:
+    my_user: dzhus
+  pre_tasks:
+    - user:
+        name: "{{ my_user }}"
+        password: $6$fvtSVxDeH2F9DsLB$gV4CCmzLGphGRFPTDg27MYbhyzH71FFjXCQXsLJ4fHCO0pqHxVAWyJaNUgOfk7RL7tCd217d1Wp4MczVbSsO8/
+        groups:
+          - adm
+          - sudo
+    - authorized_key:
+        user: "{{ my_user }}"
+        manage_dir: no
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXaDG3JExSxkuGHrv4odrafPg9VagQIGTDy6vK7E6Y7Qysu99dV7svFZQIsH1hSV49Fse3tJJ6QxdpnOD/DctyEJDg9hQ5SuWsDQvtx37L1Amf+SsuYv/lmhTZkIjc3KW5kbdzVvwi9/9O0OiKMCybsWfxUdLQA9xgDdScDY0D0jwrJZD08md4F++y85roI1QQkTXrl2RGviUaa/sKoBHA6hNoQ+OJ7HQC9zj/hrNI85gArfiD2e7qadO09Og0VPBQcnKrxVmEKNzughwdsL5oXDsWW0bjW5Wm9a92XQfRIT4UtKhW1qMvgajGurHISOMfutlXCPh2pOrhV8RmoWvF dzhus-yubikey
+  roles:
+    - role: willshersystems.sshd
+      sshd_UsePAM: no
+      sshd_PermitRootLogin: no
