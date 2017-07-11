@@ -55,6 +55,6 @@
 
   roles:
     - role: dj-wasabi.zabbix-agent
-      agent_server: "172.17.0.4" # TODO Use docker_container.IPAddress here
-      agent_serveractive: "172.17.0.4"
+      agent_server: "{{ zabbix_server.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
+      agent_serveractive: "{{ zabbix_server.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
       agent_hostname: "{{ ansible_fqdn }}"
