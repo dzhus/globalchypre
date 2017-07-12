@@ -20,3 +20,4 @@
       sshd_PermitRootLogin: no
 
     - role: tersmitten.fail2ban
+      fail2ban_bantime: 86400
