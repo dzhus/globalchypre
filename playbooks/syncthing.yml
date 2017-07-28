@@ -13,7 +13,7 @@
         update_cache: yes
 
     - apt:
-        name: syncthing=0.14.25
+        name: syncthing=0.14.33
         update_cache: yes
         cache_valid_time: 300
       notify: Restart Syncthing
