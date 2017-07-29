@@ -3,8 +3,8 @@
   vars:
     transmission_user: debian-transmission
     transmission_group: "{{ transmission_user }}"
-    transmission_config_dir: "/home/{{ transmission_user }}/.config/transmission-daemon"
-    transmission_dir_prefix: /var/lib/transmission-daemon
+    transmission_dir_prefix: "/home/{{ transmission_user }}"
+    transmission_config_dir: "{{ transmission_dir_prefix }}/.config/transmission-daemon"
     transmission_downloads_dir: "{{ transmission_dir_prefix }}/downloads"
     transmission_incomplete_dir: "{{ transmission_dir_prefix }}/incomplete"
     transmission_watch_dir: "{{ transmission_dir_prefix }}/watch"
@@ -51,28 +51,9 @@
         owner: "{{ transmission_user }}"
 
     - name: Transmission settings
-      lineinfile:
+      template:
         dest: "{{ transmission_config_dir }}/settings.json"
-        regexp: '(^ +)"{{ item.name }}":[^,]+(,?)'
-        line: '\1"{{ item.name }}": {{ item.value }}\2'
-        backrefs: yes
-      with_items:
-        - name: "download-dir"
-          value: '"{{ transmission_downloads_dir }}"'
-        - name: "incomplete-dir-enabled"
-          value: "true"
-        - name: "incomplete-dir"
-          value: '"{{ transmission_incomplete_dir }}"'
-        - name: "rpc-whitelist-enabled"
-          value: "false"
-        - name: "trash-original-torrent-files"
-          value: "true"
-        - name: "watch-dir"
-          value: '"{{ transmission_watch_dir }}"'
-        - name: "watch-dir-enabled"
-          value: "true"
-        - name: "umask"
-          value: "2"
+        src: files/transmission-settings.json.j2
       notify: Reload Transmission
 
     - systemd:
