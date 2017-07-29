@@ -48,7 +48,9 @@
           POSTGRES_PASSWORD: zabbix
           POSTGRES_USER: zabbix
         published_ports:
-          - "34881:80"
+          - "34881:443"
+        volumes:
+          - "/etc/ssl/{{ ansible_fqdn }}:/etc/ssl/nginx:ro"
         restart_policy: always
         restart_retries: 10
         recreate: "{{ zabbix_server.changed }}"

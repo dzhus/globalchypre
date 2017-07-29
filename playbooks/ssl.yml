@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+     - role: jdauphant.ssl-certs
+       ssl_certs_generate_dh_param: true
+       ssl_certs_cert_path: "{{ssl_certs_path}}/ssl.crt"
+       ssl_certs_privkey_path: "{{ssl_certs_path}}/ssl.key"
