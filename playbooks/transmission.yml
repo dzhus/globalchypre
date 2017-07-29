@@ -3,6 +3,7 @@
   vars:
     transmission_user: debian-transmission
     transmission_group: "{{ transmission_user }}"
+    transmission_config_dir: "/home/{{ transmission_user }}/.config/transmission-daemon"
     transmission_dir_prefix: /var/lib/transmission-daemon
     transmission_downloads_dir: "{{ transmission_dir_prefix }}/downloads"
     transmission_incomplete_dir: "{{ transmission_dir_prefix }}/incomplete"
@@ -42,9 +43,16 @@
         groups: "{{ transmission_group }}"
         append: yes
 
+    - name: Transmission config directory
+      file:
+        dest: "{{ transmission_config_dir }}"
+        state: directory
+        group: "{{ transmission_group }}"
+        owner: "{{ transmission_user }}"
+
     - name: Transmission settings
       lineinfile:
-        dest: "/var/lib/transmission-daemon/info/settings.json"
+        dest: "{{ transmission_config_dir }}/settings.json"
         regexp: '(^ +)"{{ item.name }}":[^,]+(,?)'
         line: '\1"{{ item.name }}": {{ item.value }}\2'
         backrefs: yes
@@ -67,7 +75,7 @@
           value: "2"
       notify: Reload Transmission
 
-    - service:
+    - systemd:
         name: transmission-daemon
         enabled: yes
         state: started
