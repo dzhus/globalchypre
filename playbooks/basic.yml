@@ -8,3 +8,4 @@
       with_items:
         - dfc
         - htop
+        - zile
