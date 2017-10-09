@@ -11,7 +11,7 @@
     - authorized_key:
         user: "{{ my_user }}"
         manage_dir: no
-        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXaDG3JExSxkuGHrv4odrafPg9VagQIGTDy6vK7E6Y7Qysu99dV7svFZQIsH1hSV49Fse3tJJ6QxdpnOD/DctyEJDg9hQ5SuWsDQvtx37L1Amf+SsuYv/lmhTZkIjc3KW5kbdzVvwi9/9O0OiKMCybsWfxUdLQA9xgDdScDY0D0jwrJZD08md4F++y85roI1QQkTXrl2RGviUaa/sKoBHA6hNoQ+OJ7HQC9zj/hrNI85gArfiD2e7qadO09Og0VPBQcnKrxVmEKNzughwdsL5oXDsWW0bjW5Wm9a92XQfRIT4UtKhW1qMvgajGurHISOMfutlXCPh2pOrhV8RmoWvF dzhus-yubikey
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCb33HWPPa0QuqKgpvMVJXeobh+WBt+wfvF7EGvhdJV65sLnoPq/U/MJ3KepYM3cNXdoXFjA6ClkxZ6llmBxwvoNShjwruUtRquG+wl0ahq7vq7INg5/ji9pUz4zOb69semFRSXPoX9OaNMR21YKf73/cNm05msJQ/9gQkciT4lC5d1FTB22LVxd7+9A5jjYPnblJSvhxL6jQ3cMgWJeAJIJLF3zg81eE1WS/fOFCCje6g0i00y3L/rnXGWV2x8Nh7BSnMr+X6aUw00eCP6FJhYvEGghMyQbvg+kmq/39RxGCgsiyyDX3uzr1yhotOF6Z3OzEcZM3nUJwbli6JC6vzR dzhus-yubikey-2017-08-09
 
   roles:
     - role: willshersystems.sshd
