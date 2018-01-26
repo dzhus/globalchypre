@@ -1,0 +1,10 @@
+- hosts: orangepi
+  tasks:
+  - mount:
+      src: "UUID={{ storage_uuid }}"
+      path: /media
+      fstype: ext4
+      opts: errors=remount-ro,noexec,noatime,nodiratime
+      state: mounted
+      dump: 0
+      passno: 2

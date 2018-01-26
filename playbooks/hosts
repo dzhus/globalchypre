@@ -1,4 +1,4 @@
 dzhus.org
 
 [orangepi]
-192.168.43.240
+opi1 ansible_host=192.168.43.123
