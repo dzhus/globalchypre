@@ -1,16 +1,5 @@
 - hosts: dzhus.org
   pre_tasks:
-    - apt:
-        name: "{{ item }}"
-        update_cache: yes
-        cache_valid_time: 300
-      with_items:
-        - docker.io
-        - python-pip
-
-    - pip:
-        name: docker-py
-
     - docker_container:
         name: zabbix-postgres
         image: postgres:9.5

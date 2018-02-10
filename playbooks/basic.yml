@@ -1,5 +1,9 @@
 - hosts: all
 
+  vars:
+    pip_install_packages:
+      - name: docker-py
+
   tasks:
     - apt:
         name: "{{ item }}"
@@ -9,3 +13,6 @@
         - dfc
         - htop
         - zile
+  roles:
+    - role: geerlingguy.pip
+    - role: geerlingguy.docker
