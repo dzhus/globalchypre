@@ -1,0 +1,5 @@
+- import_playbook: ssh.yml
+- import_playbook: basic.yml
+- import_playbook: zabbix.yml
+- import_playbook: syncthing.yml
+- import_playbook: transmission.yml
