@@ -46,6 +46,6 @@
 
   roles:
     - role: dj-wasabi.zabbix-agent
-      agent_server: "{{ zabbix_server.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
-      agent_serveractive: "{{ zabbix_server.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
-      agent_hostname: "{{ ansible_fqdn }}"
+      zabbix_agent_server: "{{ zabbix_server.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
+      zabbix_agent_serveractive: "{{ zabbix_server.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
+      zabbix_agent_hostname: "{{ ansible_fqdn }}"
