@@ -8,6 +8,7 @@
         groups:
           - adm
           - sudo
+        append: yes
     - authorized_key:
         user: "{{ my_user }}"
         key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCb33HWPPa0QuqKgpvMVJXeobh+WBt+wfvF7EGvhdJV65sLnoPq/U/MJ3KepYM3cNXdoXFjA6ClkxZ6llmBxwvoNShjwruUtRquG+wl0ahq7vq7INg5/ji9pUz4zOb69semFRSXPoX9OaNMR21YKf73/cNm05msJQ/9gQkciT4lC5d1FTB22LVxd7+9A5jjYPnblJSvhxL6jQ3cMgWJeAJIJLF3zg81eE1WS/fOFCCje6g0i00y3L/rnXGWV2x8Nh7BSnMr+X6aUw00eCP6FJhYvEGghMyQbvg+kmq/39RxGCgsiyyDX3uzr1yhotOF6Z3OzEcZM3nUJwbli6JC6vzR dzhus-yubikey-2017-08-09
