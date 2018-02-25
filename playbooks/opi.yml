@@ -8,3 +8,11 @@
       state: mounted
       dump: 0
       passno: 2
+  - cron:
+      name: reboot-if-wifi
+      month: "*"
+      day: "*"
+      dow: "*"
+      hour: "*"
+      minute: "*"
+      job: "dmesg | grep 'wsm_scan failed' && reboot"
