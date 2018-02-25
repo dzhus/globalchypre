@@ -26,6 +26,16 @@
         - Reload Transmission
         - Restart Transmission
 
+    # Group-writable Transmission home dir so that Syncthing could
+    # put files to watch-dir
+    - name: Transmission user home folder
+      file:
+        dest: "{{ transmission_watch_dir | dirname }}"
+        state: directory
+        group: "{{ transmission_group }}"
+        owner: "{{ transmission_user }}"
+        mode:  "0775"
+
     - name: Transmission folders
       file:
         dest: "{{ item }}"
