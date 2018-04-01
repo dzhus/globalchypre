@@ -9,10 +9,11 @@
       dump: 0
       passno: 2
   - cron:
-      name: reboot-if-wifi
+      name: reboot-when-wifi-dies
       month: "*"
       day: "*"
       dow: "*"
       hour: "*"
       minute: "*"
-      job: "dmesg | grep 'wsm_scan failed' && reboot"
+      job: >-
+        /bin/bash -c "dmesg | grep 'wsm_scan failed' && reboot"
