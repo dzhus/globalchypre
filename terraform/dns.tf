@@ -53,3 +53,11 @@ resource "cloudflare_record" "cname" {
   value = "${var.site}.s3-website.eu-west-2.amazonaws.com"
   proxied = true
 }
+
+resource "cloudflare_record" "tundra" {
+  domain = "${var.site}"
+  type = "A"
+  name = "tundra.${var.site}"
+  value = "95.31.27.234"
+  proxied = false
+}

@@ -1,4 +1,4 @@
-- hosts: dzhus.org
+- hosts: tundra.dzhus.org
 
   vars:
     transmission_user: debian-transmission
