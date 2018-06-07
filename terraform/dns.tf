@@ -39,11 +39,18 @@ resource "cloudflare_record" "mx" {
   priority = "10"
 }
 
-resource "cloudflare_record" "txt" {
+resource "cloudflare_record" "spf" {
   domain = "${var.site}"
   type = "TXT"
   name = "${var.site}"
   value = "v=spf1 ip4:94.250.255.234 include:_spf.yandex.net ~all"
+}
+
+resource "cloudflare_record" "google" {
+  domain = "${var.site}"
+  type = "TXT"
+  name = "${var.site}"
+  value = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
 resource "cloudflare_record" "cname" {
