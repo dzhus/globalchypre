@@ -15,4 +15,5 @@
         - zile
   roles:
     - role: geerlingguy.pip
+      pip_package: python3-pip
     - role: geerlingguy.docker
