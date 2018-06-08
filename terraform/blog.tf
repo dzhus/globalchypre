@@ -1,5 +1,9 @@
-resource "aws_s3_bucket" "dzhus-org" {
-  bucket = "dzhus-org"
+variable "site" {
+  default = "dzhus.org"
+}
+
+resource "aws_s3_bucket" "site" {
+  bucket = "${var.site}"
 
   website {
     index_document = "index.html"
@@ -13,11 +17,11 @@ resource "aws_s3_bucket" "dzhus-org" {
             "Sid": "PublicReadGetObject",
             "Principal": "*",
             "Effect": "Allow",
-            "Action":[
+            "Action": [
                 "s3:GetObject"
             ],
-            "Resource":[
-                "arn:aws:s3:::dzhus-org/*"
+            "Resource": [
+                "arn:aws:s3:::${var.site}/*"
             ]
         }
     ]
@@ -25,17 +29,17 @@ resource "aws_s3_bucket" "dzhus-org" {
 EOF
 }
 
-resource "aws_iam_user" "blog_travis" {
-  name = "blog.travis"
+resource "aws_iam_user" "site_travis" {
+  name = "site.travis"
 }
 
-resource "aws_iam_access_key" "blog_travis" {
-  user = "${aws_iam_user.blog_travis.name}"
+resource "aws_iam_access_key" "site_travis" {
+  user = "${aws_iam_user.site_travis.name}"
 }
 
-resource "aws_iam_user_policy" "blog_travis" {
-  name = "AllowBlogPushing"
-  user = "${aws_iam_user.blog_travis.name}"
+resource "aws_iam_user_policy" "site_travis" {
+  name = "AllowSitePushing"
+  user = "${aws_iam_user.site_travis.name}"
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -46,7 +50,7 @@ resource "aws_iam_user_policy" "blog_travis" {
                 "s3:PutObject"
             ],
             "Resource": [
-                "arn:aws:s3:::${aws_s3_bucket.dzhus-org.bucket}/*"
+                "arn:aws:s3:::${aws_s3_bucket.site.bucket}/*"
             ]
         }
     ]
