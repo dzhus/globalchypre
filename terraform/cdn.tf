@@ -29,8 +29,6 @@
 #   ttl = "86400"
 # }
 
-provider "cloudflare" {}
-
 resource "cloudflare_record" "mx" {
   domain = "${var.site}"
   type = "MX"
