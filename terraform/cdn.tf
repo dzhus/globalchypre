@@ -68,3 +68,14 @@ resource "cloudflare_record" "tundra" {
   value = "95.31.27.234"
   proxied = false
 }
+
+resource "cloudflare_page_rule" "html" {
+  zone = "${var.site}"
+  target = "${var.site}/*"
+
+  actions = {
+    cache_level = "cache_everything"
+    browser_cache_ttl = "3600"
+    edge_cache_ttl = "7200"
+  }
+}
