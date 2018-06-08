@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "dzhus-org" {
   acl = "public-read"
 
   website {
-    index_document = "posts/index.html"
+    index_document = "index.html"
   }
 }
 
