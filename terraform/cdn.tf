@@ -51,6 +51,13 @@ resource "cloudflare_record" "google" {
   value = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
+resource "cloudflare_record" "yandex" {
+  domain = "${var.site}"
+  type = "TXT"
+  name = "${var.site}"
+  value = "yandex-verification: f2121f360f0c70fc"
+}
+
 resource "cloudflare_record" "cname" {
   domain = "${var.site}"
   type = "CNAME"
