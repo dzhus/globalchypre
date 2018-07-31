@@ -1,0 +1,15 @@
+- hosts: proxy
+  tasks:
+    - docker_container:
+        name: mtproxy
+        image: dzhus/mtproxy:latest@sha256:ffcc85c48f64d5e5ee2bb13b602e506510636849083e3b91c47adac828efe591
+        published_ports:
+          - "8443:443"
+        volumes:
+          - "{{ ansible_user_dir }}/mtproxy-config:/data"
+        restart_policy: always
+    - cron:
+        name: "Restart MTProxy as recommended"
+        hour: "3"
+        minute: "0"
+        job: "docker restart mtproxy"
