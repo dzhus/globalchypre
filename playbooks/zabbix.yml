@@ -7,7 +7,6 @@
           POSTGRES_PASSWORD: zabbix
           POSTGRES_USER: zabbix
         restart_policy: always
-        restart_retries: 10
       register: zabbix_db
 
     - docker_container:
@@ -21,7 +20,6 @@
         published_ports:
           - "10051:10051"
         restart_policy: always
-        restart_retries: 10
         recreate: "{{ zabbix_db.changed }}"
       register: zabbix_server
 
@@ -41,7 +39,6 @@
         volumes:
           - "/etc/ssl/{{ ansible_fqdn }}:/etc/ssl/nginx:ro"
         restart_policy: always
-        restart_retries: 10
         recreate: "{{ zabbix_server.changed }}"
 
   roles:
