@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: tundra.dzhus.org:orangepi
 
   vars:
     syncthing_service: syncthing@{{ syncthing_user }}.service
