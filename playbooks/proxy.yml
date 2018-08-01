@@ -1,4 +1,7 @@
 - hosts: proxy
+  vars_prompt:
+    - name: "rss_telegram_bot_token"
+      prompt: "Telegram bot token (ask @BotFather)"
   tasks:
     - docker_container:
         name: mtproxy
@@ -13,3 +16,13 @@
         hour: "3"
         minute: "0"
         job: "docker restart mtproxy"
+    - docker_container:
+        name: rss-to-telegram
+        image: "dzhus/rss-to-telegram:latest@sha256:551ec5957aeeadc893108204f220dd5039e32f17e52115a3f02daefd0ee6042f"
+        env:
+          # Links obtained from https://instantview.telegram.org/my/
+          R2T_MESSAGE_FORMAT: "http://t.me/iv?url={link}&rhash=56bc6e5c05a75e"
+          R2T_URL: "http://dzhus.org/atom.xml"
+          R2T_DESTINATION: "@dzhus"
+          R2T_TOKEN: "{{ rss_telegram_bot_token }}"
+        restart_policy: always
