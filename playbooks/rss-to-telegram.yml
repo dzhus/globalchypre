@@ -13,3 +13,4 @@
           R2T_DESTINATION: "@dzhus"
           R2T_TOKEN: "{{ rss_telegram_bot_token }}"
         restart_policy: always
+        state: absent
