@@ -18,7 +18,7 @@
         job: "docker restart mtproxy"
     - docker_container:
         name: rss-to-telegram
-        image: "dzhus/rss-to-telegram:2018-08-02@sha256:3d4b47480e500790e76a8a6b3fae32d72261ce0e79084fd461964fe6eadc1107"
+        image: "dzhus/rss-to-telegram:2018-08-02-r1@sha256:95c17df814e2da4f71215dcb28d399f881c075a97935253de2e58eecdea6ce08"
         env:
           # Links obtained from https://instantview.telegram.org/my/
           R2T_MESSAGE_FORMAT: "'[ ](http://t.me/iv?url={link}&rhash=56bc6e5c05a75e) {link}'"
