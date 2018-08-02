@@ -3,6 +3,9 @@
   vars:
     pip_install_packages:
       - name: docker-py
+        state: absent
+      - name: docker
+        state: present
 
   tasks:
     - apt:
