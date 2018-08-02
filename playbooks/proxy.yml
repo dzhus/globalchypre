@@ -5,7 +5,7 @@
   tasks:
     - docker_container:
         name: mtproxy
-        image: dzhus/mtproxy:latest@sha256:ffcc85c48f64d5e5ee2bb13b602e506510636849083e3b91c47adac828efe591
+        image: "dzhus/mtproxy:2018-08-02@sha256:cf7eb6602b9aa09eda5fd7171617050f9abfaea89481ac927ad38194af016aeb"
         published_ports:
           - "8443:443"
         volumes:
@@ -18,7 +18,7 @@
         job: "docker restart mtproxy"
     - docker_container:
         name: rss-to-telegram
-        image: "dzhus/rss-to-telegram:latest@sha256:551ec5957aeeadc893108204f220dd5039e32f17e52115a3f02daefd0ee6042f"
+        image: "dzhus/rss-to-telegram:2018-08-02@sha256:3d4b47480e500790e76a8a6b3fae32d72261ce0e79084fd461964fe6eadc1107"
         env:
           # Links obtained from https://instantview.telegram.org/my/
           R2T_MESSAGE_FORMAT: "http://t.me/iv?url={link}&rhash=56bc6e5c05a75e"
