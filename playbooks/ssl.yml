@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: tundra.dzhus.org
   roles:
      - role: jdauphant.ssl-certs
        ssl_certs_generate_dh_param: true
