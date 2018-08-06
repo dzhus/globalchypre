@@ -53,6 +53,15 @@ resource "aws_iam_user_policy" "site_travis" {
             "Resource": [
                 "arn:aws:s3:::${aws_s3_bucket.site.bucket}/*"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${aws_s3_bucket.site.bucket}"
+            ]
         }
     ]
 }
