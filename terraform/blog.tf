@@ -48,6 +48,7 @@ resource "aws_iam_user_policy" "site_travis" {
         {
             "Effect": "Allow",
             "Action": [
+                "s3:DeleteObject",
                 "s3:PutObject"
             ],
             "Resource": [
