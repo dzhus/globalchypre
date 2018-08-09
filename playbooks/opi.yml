@@ -18,3 +18,5 @@
       minute: "*"
       job: >-
         /bin/bash -c "dmesg | grep 'wsm_scan failed' && reboot"
+  roles:
+    - whiskerlabs.watchdog
