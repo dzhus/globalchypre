@@ -9,6 +9,7 @@
       dump: 0
       passno: 2
   - cron:
+      state: absent
       name: reboot-when-wifi-dies
       month: "*"
       day: "*"
