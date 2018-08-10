@@ -1,5 +1,7 @@
 - hosts: orangepi
   tasks:
+  - hostname:
+      name: "{{ inventory_hostname }}"
   - mount:
       src: "UUID={{ storage_uuid }}"
       path: /media
