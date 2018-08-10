@@ -9,14 +9,12 @@
       dump: 0
       passno: 2
   - cron:
-      state: absent
-      name: reboot-when-wifi-dies
+      name: reboot
       month: "*"
       day: "*"
       dow: "*"
-      hour: "*"
+      hour: "0"
       minute: "*"
-      job: >-
-        /bin/bash -c "dmesg | grep 'wsm_scan failed' && reboot"
+      job: reboot
   roles:
     - whiskerlabs.watchdog
