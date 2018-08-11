@@ -16,11 +16,9 @@
     # For boxes with no external IP, use templates with active checks
     # with https://github.com/mingfang/zabbix-templates
     #
-    # See
+    # See also
     # https://www.fontenay-ronan.fr/zabbix-monitor-a-device-behind-a-nat-firewall/
-    # for reference
     - role: dj-wasabi.zabbix-agent
-      zabbix_agent_server: "tundra.dzhus.org"
       zabbix_agent_serveractive: "tundra.dzhus.org"
       zabbix_agent_hostname: "{{ inventory_hostname }}"
       zabbix_agent_tlsconnect: "psk"
