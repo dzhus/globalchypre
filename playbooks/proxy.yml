@@ -1,8 +1,7 @@
 - hosts: proxy
-  vars_prompt:
-    - name: "rss_telegram_bot_token"
-      prompt: "Telegram bot token (ask @BotFather)"
   tasks:
+    - include_vars:
+        file: 'secret.yml'
     - docker_container:
         name: mtproxy
         image: "dzhus/mtproxy:2018-08-02@sha256:cf7eb6602b9aa09eda5fd7171617050f9abfaea89481ac927ad38194af016aeb"
@@ -24,5 +23,5 @@
           R2T_MESSAGE_FORMAT: "[ ](http://t.me/iv?url={link}&rhash=56bc6e5c05a75e) {link}"
           R2T_URL: "http://dzhus.org/atom.xml"
           R2T_DESTINATION: "@dzhus"
-          R2T_TOKEN: "{{ rss_telegram_bot_token }}"
+          R2T_TOKEN: "{{ secret_rss_telegram_bot_token }}"
         restart_policy: always
