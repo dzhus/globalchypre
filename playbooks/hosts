@@ -6,3 +6,7 @@ vps535659.ovh.net ansible_python_interpreter=/usr/bin/python3
 [orangepi]
 opi1 ansible_host=192.168.43.123
 opi2 ansible_host=192.168.43.190
+
+[zabbix-agent:children]
+proxy
+orangepi

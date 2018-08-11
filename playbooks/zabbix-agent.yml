@@ -1,0 +1,14 @@
+- hosts: zabbix-agent
+  pre_tasks:
+    - include_vars:
+        file: 'secret.yml'
+  roles:
+    - role: dj-wasabi.zabbix-agent
+      zabbix_agent_server: "tundra.dzhus.org"
+      zabbix_agent_serveractive: "tundra.dzhus.org"
+      zabbix_agent_hostname: "{{ inventory_hostname }}"
+      zabbix_agent_tlsconnect: "psk"
+      zabbix_agent_tlsaccept: "psk"
+      zabbix_agent_tlspskidentity: "{{ secret_zabbix_psk_identity }}"
+      zabbix_agent_tlspskfile: "/etc/zabbix/psk.key"
+      zabbix_agent_tlspsk_secret: "{{ secret_zabbix_psk }}"
