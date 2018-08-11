@@ -1,0 +1,47 @@
+digraph G {
+    subgraph cluster_moscow {
+        style=dashed;
+        label="tundra.dzhus.org (95.31.27.234)";
+        labelloc = "b";
+        subgraph cluster_tundra {
+            style=solid;
+            label ="tundra";
+            labelloc="b";
+            zabbix;
+            SSH;
+            Syncthing;
+            {
+                rank=same;
+                tw [label="torrents-watch\n(*.torrent files)", shape=folder];
+                td [label="torrents-download", shape=folder];
+            }
+            Transmission -> td;
+            tw -> Transmission;
+            Syncthing -> tw;
+            td -> Syncthing;
+        }
+    }
+
+    Internet [shape=pentagon, height=1];
+    Internet -> SSH [style=dashed];
+
+    subgraph cluster_london {
+        style=dashed;
+        opi1 [shape=box];
+        opi2 [shape=box];
+    }
+
+    Syncthing -> SSH [weight=2, style=invis];
+    opi1 -> zabbix;
+    opi2 -> zabbix;
+    zabbix -> zabbix;
+
+    opi1 -> Syncthing [dir=both];
+    opi2 -> Syncthing [dir=both];
+
+    laptop [label="Laptop", shape=box];
+    laptop -> Syncthing [dir=both];
+
+    phone [label="Phone", shape=box];
+    phone -> Syncthing [dir=both];
+}
