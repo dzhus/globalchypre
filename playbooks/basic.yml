@@ -1,10 +1,4 @@
 - hosts: all
-
-  vars:
-    pip_install_packages:
-      - name: docker
-        state: present
-
   tasks:
     - apt:
         name: "{{ item }}"
@@ -14,7 +8,3 @@
         - dfc
         - htop
         - zile
-  roles:
-    - role: geerlingguy.pip
-      pip_package: python3-pip
-    - role: geerlingguy.docker
