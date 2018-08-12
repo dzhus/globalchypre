@@ -16,6 +16,18 @@
   - file:
       dest: /etc/test-if-wifi-died.sh
       mode: "u+x"
+  # Workaround for watchdog-5.14
+  # https://forum.armbian.com/topic/5526-orange-pi-pc-watchdog-service-bug/
+  - lineinfile:
+      path: /lib/systemd/system/watchdog.service
+      insertafter: "[Install]"
+      state: present
+      line: "WantedBy=default.target"
+  - systemd:
+      daemon_reload: yes
+      name: watchdog
+      enabled: yes
+      state: started
   roles:
     - role: whiskerlabs.watchdog
       watchdog_log_dir: /var/log/watchdog/
