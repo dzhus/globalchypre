@@ -7,4 +7,6 @@
       with_items:
         - dfc
         - htop
+        - ifstat
+        - tmux
         - zile
