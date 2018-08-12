@@ -10,13 +10,13 @@
       state: mounted
       dump: 0
       passno: 2
-  - cron:
-      name: reboot
-      month: "*"
-      day: "*"
-      dow: "*"
-      hour: "0"
-      minute: "*"
-      job: reboot
+  - copy:
+      src: "files/test-if-wifi-died.sh"
+      dest: /etc/test-if-wifi-died.sh
+  - file:
+      dest: /etc/test-if-wifi-died.sh
+      mode: "u+x"
   roles:
-    - whiskerlabs.watchdog
+    - role: whiskerlabs.watchdog
+      watchdog_log_dir: /var/log/watchdog/
+      watchdog_test_binary: /etc/test-if-wifi-died.sh
