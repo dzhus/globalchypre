@@ -31,3 +31,10 @@
       zabbix_agent_tlspskidentity: "{{ secret_zabbix_psk_identity }}"
       zabbix_agent_tlspskfile: "/etc/zabbix/psk.key"
       zabbix_agent_tlspsk_secret: "{{ secret_zabbix_psk }}"
+  tasks:
+    # Missing on Armbian 5.38
+    - file:
+        path: /var/log/zabbix
+        state: directory
+        owner: zabbix
+        group: zabbix
