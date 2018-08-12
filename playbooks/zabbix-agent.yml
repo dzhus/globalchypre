@@ -16,6 +16,11 @@
     # For boxes with no external IP, use templates with active checks
     # with https://github.com/mingfang/zabbix-templates
     #
+    # Hosts with matching hostnames need to be created on Zabbix
+    # server too. There's no built-in way to auto-register agents
+    # using TLS/PSK, see
+    # https://support.zabbix.com/browse/ZBXNEXT-3497
+    #
     # See also
     # https://www.fontenay-ronan.fr/zabbix-monitor-a-device-behind-a-nat-firewall/
     - role: dj-wasabi.zabbix-agent
