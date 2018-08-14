@@ -25,7 +25,7 @@
     # https://www.fontenay-ronan.fr/zabbix-monitor-a-device-behind-a-nat-firewall/
     - role: dj-wasabi.zabbix-agent
       zabbix_agent_serveractive: "tundra.dzhus.org"
-      zabbix_agent_hostname: "{{ inventory_hostname }}"
+      zabbix_agent_hostname: "{{ ansible_fqdn }}"
       zabbix_agent_tlsconnect: "psk"
       zabbix_agent_tlsaccept: "psk"
       zabbix_agent_tlspskidentity: "{{ secret_zabbix_psk_identity }}"
