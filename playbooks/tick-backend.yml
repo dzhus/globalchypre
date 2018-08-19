@@ -1,0 +1,33 @@
+- hosts: tundra.dzhus.org
+  pre_tasks:
+    - include_vars:
+        file: "secret.yml"
+  vars:
+    common_name: "{{ inventory_hostname }}"
+  roles:
+    - role: manala.apt
+      manala_apt_preferences:
+        - "influxdb@influxdata"
+    - role: jdauphant.ssl-certs
+      ssl_certs_path_owner: "influxdb"
+      ssl_certs_path_group: "influxdb"
+      ssl_certs_common_name: "{{ common_name }}"
+    - role: manala.influxdb
+      manala_influxdb_config:
+        - http:
+          - https-enabled: true
+          - https-certificate:
+              "/etc/ssl/{{ common_name }}/{{ common_name }}.pem"
+          - https-private-key:
+              "/etc/ssl/{{ common_name }}/{{ common_name }}.key"
+      manala_influxdb_influx_bin: "/usr/bin/influx -ssl -unsafeSsl"
+      manala_influxdb_databases:
+        - telegraf
+      manala_influxdb_users:
+        - database: telegraf
+          name:     telegraf
+          password: "{{ secret_influxdb_password }}"
+      manala_influxdb_privileges:
+        - database: telegraf
+          user:     telegraf
+          grant:    ALL
