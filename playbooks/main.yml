@@ -5,6 +5,7 @@
 - import_playbook: docker.yml
 - import_playbook: ssl.yml
 - import_playbook: opi.yml
+- import_playbook: swap.yml
 - import_playbook: proxy.yml
 - import_playbook: zabbix.yml
 - import_playbook: zabbix-agent.yml
