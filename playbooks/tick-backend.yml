@@ -4,6 +4,7 @@
         file: "secret.yml"
   vars:
     common_name: "{{ inventory_hostname }}"
+    influx_dbname: telegraf
   roles:
     - role: manala.apt
       manala_apt_preferences:
@@ -24,15 +25,23 @@
               "/etc/ssl/{{ common_name }}/{{ common_name }}.key"
       manala_influxdb_influx_bin: "/usr/bin/influx -ssl -unsafeSsl"
       manala_influxdb_databases:
-        - telegraf
+        - "{{ influx_dbname }}"
       manala_influxdb_users:
-        - database: telegraf
+        # ADMIN
+        - database: "{{ influx_dbname }}"
+          name:     chronograf
+          password: "{{ secret_influxdb_password_chronograf }}"
+        # Telegraf
+        - database: "{{ influx_dbname }}"
           name:     telegraf
-          password: "{{ secret_influxdb_password }}"
+          password: "{{ secret_influxdb_password_telegraf }}"
       manala_influxdb_privileges:
-        - database: telegraf
-          user:     telegraf
+        - database: "{{ influx_dbname }}"
+          user:     chronograf
           grant:    ALL
+        - database: "{{ influx_dbname }}"
+          user:     telegraf
+          grant:    WRITE
   tasks:
     - apt:
         name: chronograf
@@ -48,15 +57,15 @@
         dest: /usr/share/chronograf/resources/local.src
         content: |
           {
-            "id": "31333",
+            "id": "31337",
             "name": "Local InfluxDB",
-            "username": "telegraf",
-            "password": "{{ secret_influxdb_password }}",
+            "username": "chronograf",
+            "password": "{{ secret_influxdb_password_chronograf }}",
             "url": "https://localhost:8086",
             "type": "influx",
             "insecureSkipVerify": true,
             "default": true,
-            "telegraf": "telegraf",
+            "telegraf": "{{ influx_dbname }}",
             "organization": "default"
           }
       notify: Restart Chronograf
