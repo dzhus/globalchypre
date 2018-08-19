@@ -8,6 +8,7 @@
     - role: manala.apt
       manala_apt_preferences:
         - "influxdb@influxdata"
+        - "chronograf@influxdata"
     - role: jdauphant.ssl-certs
       ssl_certs_path_owner: "influxdb"
       ssl_certs_path_group: "influxdb"
@@ -15,6 +16,7 @@
     - role: manala.influxdb
       manala_influxdb_config:
         - http:
+          - auth-enabled: true
           - https-enabled: true
           - https-certificate:
               "/etc/ssl/{{ common_name }}/{{ common_name }}.pem"
@@ -31,3 +33,35 @@
         - database: telegraf
           user:     telegraf
           grant:    ALL
+  tasks:
+    - apt:
+        name: chronograf
+        state: present
+    - copy:
+        dest: /etc/default/chronograf
+        content: |
+          PORT=48080
+          CANNED_PATH=/usr/share/chronograf/canned
+          RESOURCES_PATH=/usr/share/chronograf/resources
+      notify: Restart Chronograf
+    - copy:
+        dest: /usr/share/chronograf/resources/local.src
+        content: |
+          {
+            "id": "31333",
+            "name": "Local InfluxDB",
+            "username": "telegraf",
+            "password": "{{ secret_influxdb_password }}",
+            "url": "https://localhost:8086",
+            "type": "influx",
+            "insecureSkipVerify": true,
+            "default": true,
+            "telegraf": "telegraf",
+            "organization": "default"
+          }
+      notify: Restart Chronograf
+  handlers:
+    - name: Restart Chronograf
+      service:
+        name: chronograf
+        state: restarted
