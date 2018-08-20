@@ -13,3 +13,10 @@ orangepi
 
 [swap]
 vps535659.ovh.net
+
+[telegraf]
+tundra.dzhus.org
+
+[telegraf:children]
+proxy
+orangepi

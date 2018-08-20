@@ -1,3 +1,4 @@
 # -*- mode: yaml -*-
 
 syncthing_user: dzhus
+telegraf_influx_url: https://tundra.dzhus.org:8086

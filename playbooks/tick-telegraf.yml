@@ -1,0 +1,15 @@
+- hosts: telegraf
+  pre_tasks:
+    - include_vars:
+        file: "secret.yml"
+  roles:
+    - role: dj-wasabi.telegraf
+      telegraf_agent_output:
+        - type: influxdb
+          config:
+            - urls = ["{{ telegraf_influx_url }}"]
+            - database = "telegraf"
+            - skip_database_creation = true
+            - insecure_skip_verify = true
+            - username = "telegraf"
+            - password = "{{ secret_influxdb_password_telegraf }}"
