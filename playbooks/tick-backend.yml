@@ -49,6 +49,7 @@
     - copy:
         dest: /etc/default/chronograf
         content: |
+          HOST=127.0.0.1
           PORT=48080
           CANNED_PATH=/usr/share/chronograf/canned
           RESOURCES_PATH=/usr/share/chronograf/resources
