@@ -1,3 +1,14 @@
+- hosts: tundra.dzhus.org
+  vars:
+    influx_cn: "{{ inventory_hostname }}"
+  # Download InfluxDB cert and set it as fact for the central host
+  tasks:
+    - command: cat /etc/ssl/{{ influx_cn }}/{{ influx_cn }}.pem
+      register: influx_cert
+      changed_when: false
+    - set_fact:
+        influx_cert: "{{ influx_cert.stdout }}"
+
 - hosts: telegraf
   pre_tasks:
     - include_vars:
@@ -10,6 +21,12 @@
             - urls = ["{{ telegraf_influx_url }}"]
             - database = "telegraf"
             - skip_database_creation = true
-            - insecure_skip_verify = true
+            - tls_ca = "/etc/telegraf/{{ telegraf_influx_cn }}.pem"
             - username = "telegraf"
             - password = "{{ secret_influxdb_password_telegraf }}"
+  tasks:
+    # Distribute the certificate on hosts with Telegraf
+    - copy:
+        content: "{{ hostvars[telegraf_influx_cn]['influx_cert'] }}"
+        dest: "/etc/telegraf/{{ telegraf_influx_cn }}.pem"
+      notify: "Restart Telegraf"

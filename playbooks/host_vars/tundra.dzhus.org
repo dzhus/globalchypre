@@ -1,3 +1,0 @@
-# -*- mode: yaml -*-
-
-telegraf_influx_url: https://localhost:8086

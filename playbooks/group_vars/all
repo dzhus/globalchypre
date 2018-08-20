@@ -1,4 +1,5 @@
 # -*- mode: yaml -*-
 
 syncthing_user: dzhus
-telegraf_influx_url: https://tundra.dzhus.org:8086
+telegraf_influx_cn: tundra.dzhus.org
+telegraf_influx_url: https://{{ telegraf_influx_cn }}:8086
