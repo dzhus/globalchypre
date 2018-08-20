@@ -1,7 +1,5 @@
 # Non-managed configuration
 
-- [ ] Zabbix items and USERS (lives inside `zabbix-postgres` container)
-
 - [ ] Syncthing configuration (`~dzhus/.config/syncthing/config.xml`)
 
 # Syncthing permissions

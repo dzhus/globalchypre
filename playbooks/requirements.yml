@@ -1,7 +1,6 @@
 - tersmitten.fail2ban
 - willshersystems.sshd
 - jdauphant.ssl-certs
-- dj-wasabi.zabbix-agent
 - geerlingguy.pip
 - geerlingguy.docker
 - oefenweb.swapfile

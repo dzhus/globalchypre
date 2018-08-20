@@ -7,7 +7,7 @@ digraph G {
             style=solid;
             label ="tundra";
             labelloc="b";
-            zabbix;
+            InfluxDB;
             SSH;
             Syncthing;
             {
@@ -19,6 +19,7 @@ digraph G {
             tw -> Transmission;
             Syncthing -> tw;
             td -> Syncthing;
+            Chronograf;
         }
     }
 
@@ -32,9 +33,9 @@ digraph G {
     }
 
     Syncthing -> SSH [weight=2, style=invis];
-    opi1 -> zabbix;
-    opi2 -> zabbix;
-    zabbix -> zabbix;
+    opi1 -> InfluxDB;
+    opi2 -> InfluxDB;
+    Chronograf -> InfluxDB [dir=none];
 
     opi1 -> Syncthing [dir=both];
     opi2 -> Syncthing [dir=both];
