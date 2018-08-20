@@ -17,21 +17,23 @@
     - role: manala.influxdb
       manala_influxdb_config:
         - http:
-          # - auth-enabled: true
+          - auth-enabled: true
           - https-enabled: true
           - https-certificate:
               "/etc/ssl/{{ common_name }}/{{ common_name }}.pem"
           - https-private-key:
               "/etc/ssl/{{ common_name }}/{{ common_name }}.key"
       manala_influxdb_influx_bin: "/usr/bin/influx -ssl -unsafeSsl"
+      manala_influxdb_admins:
+        telegraf:
+          name:     admin
+          password: "{{ secret_influxdb_password_admin }}"
       manala_influxdb_databases:
         - "{{ influx_dbname }}"
       manala_influxdb_users:
-        # ADMIN
         - database: "{{ influx_dbname }}"
           name:     chronograf
           password: "{{ secret_influxdb_password_chronograf }}"
-        # Telegraf
         - database: "{{ influx_dbname }}"
           name:     telegraf
           password: "{{ secret_influxdb_password_telegraf }}"
