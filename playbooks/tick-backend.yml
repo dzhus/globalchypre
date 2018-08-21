@@ -9,7 +9,6 @@
     - role: manala.apt
       manala_apt_preferences:
         - "influxdb@influxdata"
-        - "chronograf@influxdata"
     - role: jdauphant.ssl-certs
       ssl_certs_path_owner: "influxdb"
       ssl_certs_path_group: "influxdb"
@@ -32,14 +31,14 @@
         - "{{ influx_dbname }}"
       manala_influxdb_users:
         - database: "{{ influx_dbname }}"
-          name:     chronograf
-          password: "{{ secret_influxdb_password_chronograf }}"
+          name:     grafana
+          password: "{{ secret_influxdb_password_grafana }}"
         - database: "{{ influx_dbname }}"
           name:     telegraf
           password: "{{ secret_influxdb_password_telegraf }}"
       manala_influxdb_privileges:
         - database: "{{ influx_dbname }}"
-          user:     chronograf
+          user:     grafana
           grant:    ALL
         - database: "{{ influx_dbname }}"
           user:     telegraf
@@ -55,31 +54,13 @@
   tasks:
     - apt:
         name: chronograf
-        state: present
-    - copy:
+        state: absent
+    - file:
         dest: /etc/default/chronograf
-        content: |
-          HOST=127.0.0.1
-          PORT=48080
-          CANNED_PATH=/usr/share/chronograf/canned
-          RESOURCES_PATH=/usr/share/chronograf/resources
-      notify: Restart Chronograf
-    - copy:
+        state: absent
+    - file:
         dest: /usr/share/chronograf/resources/local.src
-        content: |
-          {
-            "id": "31337",
-            "name": "Local InfluxDB",
-            "username": "chronograf",
-            "password": "{{ secret_influxdb_password_chronograf }}",
-            "url": "https://localhost:8086",
-            "type": "influx",
-            "insecureSkipVerify": true,
-            "default": true,
-            "telegraf": "{{ influx_dbname }}",
-            "organization": "default"
-          }
-      notify: Restart Chronograf
+        state: absent
     - grafana_datasource:
         name: "InfluxDB"
         access: proxy # server-to-server requests
@@ -87,8 +68,8 @@
         ds_type: influxdb
         grafana_url: "http://localhost:3000"
         is_default: true
-        user: "chronograf"
-        password: "{{ secret_influxdb_password_chronograf }}"
+        user: "grafana"
+        password: "{{ secret_influxdb_password_grafana }}"
         url: "https://localhost:8086"
         # + TODO Skip TLS Verification
 
@@ -104,8 +85,3 @@
     #     message: "Telegraf dashboard"
     #     path: /var/tmp/telegraf-dashboard.json
     #     grafana_url: "http://localhost:3000"
-  handlers:
-    - name: Restart Chronograf
-      service:
-        name: chronograf
-        state: restarted
