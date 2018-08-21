@@ -44,6 +44,14 @@
         - database: "{{ influx_dbname }}"
           user:     telegraf
           grant:    WRITE
+    - role: Stouts.grafana
+      grafana_version: 5.2.2
+      grafana_http_addr: 127.0.0.1
+      grafana_provider: memory
+      grafana_reporting_enabled: false
+      grafana_check_for_updates: false
+      grafana_allow_sign_up: false
+      grafana_allow_org_create: false
   tasks:
     - apt:
         name: chronograf
@@ -72,6 +80,30 @@
             "organization": "default"
           }
       notify: Restart Chronograf
+    - grafana_datasource:
+        name: "InfluxDB"
+        access: proxy # server-to-server requests
+        database: "{{ influx_dbname }}"
+        ds_type: influxdb
+        grafana_url: "http://localhost:3000"
+        is_default: true
+        user: "chronograf"
+        password: "{{ secret_influxdb_password_chronograf }}"
+        url: "https://localhost:8086"
+        # + TODO Skip TLS Verification
+
+    # DS_INFLUX_TELEGRAF variable has to be set from Grafana UI when
+    # importing the dashboard, so we can't use this module here
+    #
+    # - get_url:
+    #     url: https://grafana.com/api/dashboards/928/revisions/3/download
+    #     dest: /var/tmp/telegraf-dashboard.json
+    #     checksum: "sha256:da3b827eb57e3431bc37336ae2987d9e0ec9d5dc145aa65c6fae8a92d446cc14"
+    # - grafana_dashboard:
+    #     slug: "main"
+    #     message: "Telegraf dashboard"
+    #     path: /var/tmp/telegraf-dashboard.json
+    #     grafana_url: "http://localhost:3000"
   handlers:
     - name: Restart Chronograf
       service:
