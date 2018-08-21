@@ -24,6 +24,20 @@
             - tls_ca = "/etc/telegraf/{{ telegraf_influx_cn }}.pem"
             - username = "telegraf"
             - password = "{{ secret_influxdb_password_telegraf }}"
+      telegraf_plugins_default:
+        - plugin: cpu
+          config:
+            - totalcpu = true
+        - plugin: disk
+          config:
+            - mount_points = ["/", "/media"]
+        - plugin: io
+        - plugin: mem
+        - plugin: kernel
+        - plugin: system
+        - plugin: swap
+        - plugin: net
+        - plugin: processes
   tasks:
     # Distribute the certificate on hosts with Telegraf
     - copy:
