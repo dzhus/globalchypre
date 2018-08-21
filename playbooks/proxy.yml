@@ -1,4 +1,11 @@
 - hosts: proxy
+  roles:
+    - role: geerlingguy.pip
+      pip_package: python3-pip
+      pip_install_packages:
+        - name: docker
+          state: present
+    - role: geerlingguy.docker
   tasks:
     - include_vars:
         file: 'secret.yml'
