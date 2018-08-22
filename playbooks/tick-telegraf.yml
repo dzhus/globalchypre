@@ -1,9 +1,9 @@
 - hosts: tundra.dzhus.org
   vars:
     influx_cn: "{{ inventory_hostname }}"
-  # Download InfluxDB cert and set it as fact for the central host
   tasks:
-    - command: cat /etc/ssl/{{ influx_cn }}/{{ influx_cn }}.pem
+    - name: "Download InfluxDB cert from {{ influx_cn }} central host"
+      command: cat /etc/ssl/{{ influx_cn }}/{{ influx_cn }}.pem
       register: influx_cert
       changed_when: false
     - set_fact:
@@ -39,8 +39,8 @@
         - plugin: net
         - plugin: processes
   tasks:
-    # Distribute the certificate on hosts with Telegraf
-    - copy:
+    - name: Distribute the certificate on hosts with Telegraf
+      copy:
         content: "{{ hostvars[telegraf_influx_cn]['influx_cert'] }}"
         dest: "/etc/telegraf/{{ telegraf_influx_cn }}.pem"
       notify: "Restart Telegraf"
