@@ -28,6 +28,20 @@
       name: watchdog
       enabled: yes
       state: started
+  - lineinfile:
+      path: /boot/armbianEnv.txt
+      regexp: '^overlays='
+      state: present
+      line: "overlays=analog-codec usbhost2 usbhost3"
+    register: overlays
+  - command: reboot
+    when: overlays is changed
+  - apt:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - vorbis-tools
+      - sox
   roles:
     - role: whiskerlabs.watchdog
       watchdog_log_dir: /var/log/watchdog/
