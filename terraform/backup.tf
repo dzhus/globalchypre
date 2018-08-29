@@ -59,12 +59,15 @@ EOF
 
 output "backup_access_key_id" {
   value = "${aws_iam_access_key.backup_tundra.id}"
+  sensitive = true
 }
 
 output "backup_secret_access_key" {
   value = "${aws_iam_access_key.backup_tundra.secret}"
+  sensitive = true
 }
 
 output "backup_bucket_region" {
   value = "${aws_s3_bucket.backup.region}"
+  sensitive = true
 }
