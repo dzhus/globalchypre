@@ -71,7 +71,7 @@
         user: "grafana"
         password: "{{ secret_influxdb_password_grafana }}"
         url: "https://localhost:8086"
-        # + TODO Skip TLS Verification
+        tls_skip_verify: true
 
     # DS_INFLUX_TELEGRAF variable has to be set from Grafana UI when
     # importing the dashboard, so we can't use this module here
