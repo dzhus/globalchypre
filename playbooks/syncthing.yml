@@ -1,3 +1,18 @@
+- hosts: syncthing:&orangepi
+  tasks:
+    - mount:
+        src: "UUID={{ storage_uuid }}"
+        path: /media
+        fstype: ext4
+        opts: errors=remount-ro,noexec,noatime,nodiratime
+        state: mounted
+        dump: 0
+        passno: 2
+      register: mounts
+
+    - command: reboot
+      when: mounts is changed
+
 - hosts: syncthing
 
   vars:
