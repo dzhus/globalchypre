@@ -13,6 +13,9 @@
   pre_tasks:
     - include_vars:
         file: "secret.yml"
+    - apt:
+        package: lm-sensors
+        state: present
   roles:
     - role: dj-wasabi.telegraf
       telegraf_agent_output:
@@ -35,6 +38,7 @@
         - plugin: mem
         - plugin: kernel
         - plugin: system
+        - plugin: sensors
         - plugin: swap
         - plugin: net
         - plugin: processes
