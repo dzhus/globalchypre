@@ -1,7 +1,7 @@
 tundra.dzhus.org
 
 [proxy]
-vps535659.ovh.net ansible_python_interpreter=/usr/bin/python3
+proxy.dzhus.org ansible_python_interpreter=/usr/bin/python3
 
 [orangepi]
 opi1 ansible_host=192.168.77.101 ansible_python_interpreter=/usr/bin/python3
