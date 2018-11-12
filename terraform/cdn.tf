@@ -74,6 +74,14 @@ resource "cloudflare_record" "tundra" {
   proxied = false
 }
 
+resource "cloudflare_record" "proxy" {
+  domain = "${var.site}"
+  type = "A"
+  name = "proxy.${var.site}"
+  value = "94.177.243.92"
+  proxied = false
+}
+
 resource "cloudflare_page_rule" "all" {
   zone = "${var.site}"
   target = "${var.site}/*"
