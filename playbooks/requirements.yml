@@ -1,5 +1,6 @@
-- tersmitten.fail2ban
-- willshersystems.sshd
+- oefenweb.fail2ban
+- src: willshersystems.sshd
+  version: v0.7.2
 - jdauphant.ssl-certs
 - geerlingguy.pip
 - geerlingguy.docker

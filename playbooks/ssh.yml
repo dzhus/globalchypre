@@ -20,5 +20,5 @@
       sshd_PasswordAuthentication: no
       sshd_PermitRootLogin: no
 
-    - role: tersmitten.fail2ban
+    - role: oefenweb.fail2ban
       fail2ban_bantime: 86400
