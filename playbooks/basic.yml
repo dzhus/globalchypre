@@ -1,12 +1,11 @@
 - hosts: all
   tasks:
     - apt:
-        name: "{{ item }}"
+        name:
+          - dfc
+          - htop
+          - ifstat
+          - tmux
+          - zile
         update_cache: yes
         cache_valid_time: 300
-      with_items:
-        - dfc
-        - htop
-        - ifstat
-        - tmux
-        - zile

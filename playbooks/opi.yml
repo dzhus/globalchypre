@@ -29,11 +29,10 @@
   - command: reboot
     when: overlays is changed
   - apt:
-      name: "{{ item }}"
       state: present
-    with_items:
-      - vorbis-tools
-      - sox
+      name:
+        - vorbis-tools
+        - sox
   roles:
     - role: whiskerlabs.watchdog
       watchdog_log_dir: /var/log/watchdog/
