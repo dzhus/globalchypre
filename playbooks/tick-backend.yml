@@ -22,6 +22,8 @@
               "/etc/ssl/{{ common_name }}/{{ common_name }}.pem"
           - https-private-key:
               "/etc/ssl/{{ common_name }}/{{ common_name }}.key"
+        - data:
+          - cache-max-memory-size: "256m"
       manala_influxdb_influx_bin: "/usr/bin/influx -ssl -unsafeSsl"
       manala_influxdb_admins:
         telegraf:
