@@ -1,4 +1,0 @@
-- hosts: swap
-  roles:
-    - role: oefenweb.swapfile
-      swapfile_size: 1GB

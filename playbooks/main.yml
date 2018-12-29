@@ -4,7 +4,6 @@
 - import_playbook: basic.yml
 - import_playbook: docker.yml
 - import_playbook: opi.yml
-- import_playbook: swap.yml
 - import_playbook: tick-backend.yml
 - import_playbook: tick-telegraf.yml
 - import_playbook: syncthing.yml

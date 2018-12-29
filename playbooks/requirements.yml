@@ -4,7 +4,6 @@
 - jdauphant.ssl-certs
 - geerlingguy.pip
 - geerlingguy.docker
-- oefenweb.swapfile
 - dj-wasabi.telegraf
 - whiskerlabs.watchdog
 - manala.apt
