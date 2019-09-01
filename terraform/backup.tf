@@ -28,7 +28,7 @@ resource "aws_iam_access_key" "backup_tundra" {
 }
 
 resource "aws_iam_user_policy" "backup_tundra" {
-  name = "AllowSitePushing"
+  name = "AllowPushingBackups"
   user = "${aws_iam_user.backup_tundra.name}"
   policy = <<EOF
 {
