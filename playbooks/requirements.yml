@@ -4,7 +4,6 @@
 - geerlingguy.pip
 - geerlingguy.docker
 - dj-wasabi.telegraf
-- whiskerlabs.watchdog
 - manala.apt
 - manala.influxdb # see dzhus/ansible-roles
 - Stouts.grafana
