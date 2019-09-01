@@ -11,6 +11,7 @@
       register: mounts
 
     - command: reboot
+      name: Reboot the board (the playbook will hang now)
       when: mounts is changed
 
 - hosts: syncthing
@@ -28,7 +29,7 @@
         update_cache: yes
 
     - apt:
-        name: syncthing=0.14.49
+        name: syncthing=1.2.1
         update_cache: yes
         cache_valid_time: 300
       notify: Restart Syncthing
