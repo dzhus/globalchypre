@@ -48,4 +48,5 @@
     - name: Restart Syncthing
       service:
         name: "{{ syncthing_service }}"
+        daemon_reload: yes
         state: restarted
