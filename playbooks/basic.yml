@@ -9,3 +9,7 @@
           - zile
         update_cache: yes
         cache_valid_time: 300
+- hosts: orangepi
+  tasks:
+    - hostname:
+        name: "{{ inventory_hostname }}"
