@@ -1,9 +1,5 @@
 - oefenweb.fail2ban
 - willshersystems.sshd
-- jdauphant.ssl-certs
 - geerlingguy.pip
 - geerlingguy.docker
 - dj-wasabi.telegraf
-- manala.apt
-- manala.influxdb # see dzhus/ansible-roles
-- Stouts.grafana

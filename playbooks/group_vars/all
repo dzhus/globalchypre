@@ -1,5 +1,6 @@
 # -*- mode: yaml -*-
 
 syncthing_user: dzhus
-telegraf_influx_cn: tundra.dzhus.org
-telegraf_influx_url: https://{{ telegraf_influx_cn }}:8086
+telegraf_influx_url: https://us-west-2-1.aws.cloud2.influxdata.com
+telegraf_influx_org: dima@dzhus.org
+telegraf_influx_bucket: "dima's Bucket"

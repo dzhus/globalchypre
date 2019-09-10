@@ -1,14 +1,3 @@
-- hosts: tundra.dzhus.org
-  vars:
-    influx_cn: "{{ inventory_hostname }}"
-  tasks:
-    - name: "Download InfluxDB cert from {{ influx_cn }} central host"
-      command: cat /etc/ssl/{{ influx_cn }}/{{ influx_cn }}.pem
-      register: influx_cert
-      changed_when: false
-    - set_fact:
-        influx_cert: "{{ influx_cert.stdout }}"
-
 - hosts: telegraf
   pre_tasks:
     - include_vars:
@@ -19,14 +8,12 @@
   roles:
     - role: dj-wasabi.telegraf
       telegraf_agent_output:
-        - type: influxdb
+        - type: influxdb_v2
           config:
             - urls = ["{{ telegraf_influx_url }}"]
-            - database = "telegraf"
-            - skip_database_creation = true
-            - tls_ca = "/etc/telegraf/{{ telegraf_influx_cn }}.pem"
-            - username = "telegraf"
-            - password = "{{ secret_influxdb_password_telegraf }}"
+            - token = "{{ telegraf_influx_token }}"
+            - organization = "{{ telegraf_influx_org }}"
+            - bucket = "{{ telegraf_influx_bucket }}"
       telegraf_plugins_default:
         - plugin: cpu
           config:
@@ -42,9 +29,4 @@
         - plugin: swap
         - plugin: net
         - plugin: processes
-  tasks:
-    - name: Distribute the certificate on hosts with Telegraf
-      copy:
-        content: "{{ hostvars[telegraf_influx_cn]['influx_cert'] }}"
-        dest: "/etc/telegraf/{{ telegraf_influx_cn }}.pem"
       notify: "Restart Telegraf"
