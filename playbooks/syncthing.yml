@@ -14,6 +14,11 @@
       name: Reboot the board (the playbook will hang now)
       when: mounts is changed
 
+    - file:
+        path: /media
+        owner: "{{ syncthing_user }}"
+        group: "{{ syncthing_user }}"
+
 - hosts: syncthing
 
   vars:
