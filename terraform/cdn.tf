@@ -88,14 +88,6 @@ resource "cloudflare_record" "cname" {
   proxied = true
 }
 
-resource "cloudflare_record" "tundra" {
-  domain = "${var.site}"
-  type = "A"
-  name = "tundra.${var.site}"
-  value = "95.31.27.234"
-  proxied = false
-}
-
 resource "cloudflare_record" "proxy" {
   domain = "${var.site}"
   type = "A"
