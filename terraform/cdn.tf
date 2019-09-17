@@ -49,7 +49,7 @@ resource "cloudflare_record" "spf" {
   domain = "${var.site}"
   type = "TXT"
   name = "${var.site}"
-  value = "v=spf1 ip4:94.250.255.234 include:_spf.yandex.net ~all"
+  value = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "google" {
