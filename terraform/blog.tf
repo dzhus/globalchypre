@@ -6,6 +6,14 @@ variable "site" {
   default = "dzhus.org"
 }
 
+resource "aws_s3_bucket" "new_site" {
+  bucket = "${var.new_site}"
+  website {
+    redirect_all_requests_to = "${aws_s3_bucket.site.bucket}"
+  }
+}
+
+
 resource "aws_s3_bucket" "site" {
   bucket = "${var.site}"
 

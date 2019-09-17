@@ -88,6 +88,14 @@ resource "cloudflare_record" "cname" {
   proxied = true
 }
 
+resource "cloudflare_record" "cname_new" {
+  domain = "${var.new_site}"
+  type = "CNAME"
+  name = "${var.new_site}"
+  value = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
+  proxied = true
+}
+
 resource "cloudflare_record" "proxy" {
   domain = "${var.site}"
   type = "A"
