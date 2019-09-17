@@ -37,6 +37,14 @@ resource "cloudflare_record" "mx" {
   priority = "10"
 }
 
+resource "cloudflare_record" "mx_new" {
+  domain = "${var.new_site}"
+  type = "MX"
+  name = "${var.new_site}"
+  value = "mx.yandex.net"
+  priority = "10"
+}
+
 resource "cloudflare_record" "spf" {
   domain = "${var.site}"
   type = "TXT"
@@ -51,11 +59,25 @@ resource "cloudflare_record" "google" {
   value = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
+resource "cloudflare_record" "spf_new" {
+  domain = "${var.new_site}"
+  type = "TXT"
+  name = "${var.new_site}"
+  value = "v=spf1 redirect=_spf.yandex.net"
+}
+
 resource "cloudflare_record" "yandex" {
   domain = "${var.site}"
   type = "TXT"
   name = "${var.site}"
   value = "yandex-verification: f2121f360f0c70fc"
+}
+
+resource "cloudflare_record" "yandex_new" {
+  domain = "${var.new_site}"
+  type = "TXT"
+  name = "${var.new_site}"
+  value = "yandex-verification: 783f4152e3fc517c"
 }
 
 resource "cloudflare_record" "cname" {

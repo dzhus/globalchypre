@@ -1,3 +1,7 @@
+variable "new_site" {
+  default = "djouce.eu"
+}
+
 variable "site" {
   default = "dzhus.org"
 }
