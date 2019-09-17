@@ -26,7 +26,6 @@
         - plugin: mem
         - plugin: kernel
         - plugin: system
-        - plugin: sensors
         - plugin: swap
         - plugin: net
         - plugin: processes
