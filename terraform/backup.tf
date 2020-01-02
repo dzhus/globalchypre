@@ -3,7 +3,7 @@ variable "backup_bucket" {
 }
 
 resource "aws_s3_bucket" "backup" {
-  bucket = "${var.backup_bucket}"
+  bucket = var.backup_bucket
 
   versioning {
     enabled = true
@@ -15,12 +15,12 @@ resource "aws_iam_user" "backup_tundra" {
 }
 
 resource "aws_iam_access_key" "backup_tundra" {
-  user = "${aws_iam_user.backup_tundra.name}"
+  user = aws_iam_user.backup_tundra.name
 }
 
 resource "aws_iam_user_policy" "backup_tundra" {
-  name = "AllowPushingBackups"
-  user = "${aws_iam_user.backup_tundra.name}"
+  name   = "AllowPushingBackups"
+  user   = aws_iam_user.backup_tundra.name
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -46,19 +46,20 @@ resource "aws_iam_user_policy" "backup_tundra" {
     ]
 }
 EOF
+
 }
 
 output "backup_access_key_id" {
-  value = "${aws_iam_access_key.backup_tundra.id}"
+  value     = aws_iam_access_key.backup_tundra.id
   sensitive = true
 }
 
 output "backup_secret_access_key" {
-  value = "${aws_iam_access_key.backup_tundra.secret}"
+  value     = aws_iam_access_key.backup_tundra.secret
   sensitive = true
 }
 
 output "backup_bucket_region" {
-  value = "${aws_s3_bucket.backup.region}"
+  value     = aws_s3_bucket.backup.region
   sensitive = true
 }

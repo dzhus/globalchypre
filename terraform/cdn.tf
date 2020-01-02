@@ -30,87 +30,87 @@
 # }
 
 resource "cloudflare_record" "mx" {
-  domain = "${var.site}"
-  type = "MX"
-  name = "${var.site}"
-  value = "mx.yandex.net"
+  name     = var.site
+  type     = "MX"
+  name     = var.site
+  value    = "mx.yandex.net"
   priority = "10"
 }
 
 resource "cloudflare_record" "mx_new" {
-  domain = "${var.new_site}"
-  type = "MX"
-  name = "${var.new_site}"
-  value = "mx.yandex.net"
+  name     = var.new_site
+  type     = "MX"
+  name     = var.new_site
+  value    = "mx.yandex.net"
   priority = "10"
 }
 
 resource "cloudflare_record" "spf" {
-  domain = "${var.site}"
-  type = "TXT"
-  name = "${var.site}"
+  name  = var.site
+  type  = "TXT"
+  name  = var.site
   value = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "google" {
-  domain = "${var.site}"
-  type = "TXT"
-  name = "${var.site}"
+  name  = var.site
+  type  = "TXT"
+  name  = var.site
   value = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
 resource "cloudflare_record" "spf_new" {
-  domain = "${var.new_site}"
-  type = "TXT"
-  name = "${var.new_site}"
+  name  = var.new_site
+  type  = "TXT"
+  name  = var.new_site
   value = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "yandex" {
-  domain = "${var.site}"
-  type = "TXT"
-  name = "${var.site}"
+  name  = var.site
+  type  = "TXT"
+  name  = var.site
   value = "yandex-verification: f2121f360f0c70fc"
 }
 
 resource "cloudflare_record" "yandex_new" {
-  domain = "${var.new_site}"
-  type = "TXT"
-  name = "${var.new_site}"
+  name  = var.new_site
+  type  = "TXT"
+  name  = var.new_site
   value = "yandex-verification: 783f4152e3fc517c"
 }
 
 resource "cloudflare_record" "cname" {
-  domain = "${var.site}"
-  type = "CNAME"
-  name = "${var.site}"
-  value = "${var.site}.s3-website.eu-west-2.amazonaws.com"
+  name    = var.site
+  type    = "CNAME"
+  name    = var.site
+  value   = "${var.site}.s3-website.eu-west-2.amazonaws.com"
   proxied = true
 }
 
 resource "cloudflare_record" "cname_new" {
-  domain = "${var.new_site}"
-  type = "CNAME"
-  name = "${var.new_site}"
-  value = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
+  name    = var.new_site
+  type    = "CNAME"
+  name    = var.new_site
+  value   = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
   proxied = true
 }
 
 resource "cloudflare_record" "proxy" {
-  domain = "${var.site}"
-  type = "A"
-  name = "proxy.${var.site}"
-  value = "94.177.243.92"
+  name    = var.site
+  type    = "A"
+  name    = "proxy.${var.site}"
+  value   = "94.177.243.92"
   proxied = false
 }
 
 resource "cloudflare_page_rule" "all" {
-  zone = "${var.site}"
-  target = "${var.site}/*"
+  zone_id = var.site
+  target  = "${var.site}/*"
 
-  actions = {
-    cache_level = "cache_everything"
+  actions {
+    cache_level       = "cache_everything"
     browser_cache_ttl = "3600"
-    edge_cache_ttl = "604800"
+    edge_cache_ttl    = "604800"
   }
 }

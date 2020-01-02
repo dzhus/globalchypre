@@ -7,15 +7,14 @@ variable "site" {
 }
 
 resource "aws_s3_bucket" "new_site" {
-  bucket = "${var.new_site}"
+  bucket = var.new_site
   website {
-    redirect_all_requests_to = "${aws_s3_bucket.site.bucket}"
+    redirect_all_requests_to = aws_s3_bucket.site.bucket
   }
 }
 
-
 resource "aws_s3_bucket" "site" {
-  bucket = "${var.site}"
+  bucket = var.site
 
   website {
     index_document = "index.html"
@@ -40,6 +39,7 @@ resource "aws_s3_bucket" "site" {
     ]
 }
 EOF
+
 }
 
 resource "aws_iam_user" "site_travis" {
@@ -47,12 +47,12 @@ resource "aws_iam_user" "site_travis" {
 }
 
 resource "aws_iam_access_key" "site_travis" {
-  user = "${aws_iam_user.site_travis.name}"
+  user = aws_iam_user.site_travis.name
 }
 
 resource "aws_iam_user_policy" "site_travis" {
-  name = "AllowSitePushing"
-  user = "${aws_iam_user.site_travis.name}"
+  name   = "AllowSitePushing"
+  user   = aws_iam_user.site_travis.name
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -79,4 +79,5 @@ resource "aws_iam_user_policy" "site_travis" {
     ]
 }
 EOF
+
 }
