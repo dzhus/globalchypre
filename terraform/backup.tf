@@ -8,15 +8,6 @@ resource "aws_s3_bucket" "backup" {
   versioning {
     enabled = true
   }
-
-  # Delete backups older than 2 weeks
-  lifecycle_rule {
-    enabled = true
-
-    expiration {
-      days = 14
-    }
-  }
 }
 
 resource "aws_iam_user" "backup_tundra" {
