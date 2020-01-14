@@ -1,21 +1,11 @@
-tundra.dzhus.org
-
-[proxy]
-proxy.dzhus.org ansible_python_interpreter=/usr/bin/python3
-
 [orangepi]
 opi1 ansible_host=192.168.77.101 ansible_python_interpreter=/usr/bin/python3
 opi2 ansible_host=192.168.77.102 ansible_python_interpreter=/usr/bin/python3
 opi3 ansible_host=192.168.77.103 ansible_python_interpreter=/usr/bin/python3
 
 [syncthing]
-tundra.dzhus.org
 opi1
 opi2
 
-[telegraf]
-tundra.dzhus.org
-
 [telegraf:children]
-proxy
 orangepi

@@ -104,14 +104,6 @@ resource "cloudflare_record" "cname_new" {
   proxied = true
 }
 
-resource "cloudflare_record" "proxy" {
-  zone_id = var.site_zone_id
-  type    = "A"
-  name    = "proxy.${var.site}"
-  value   = "94.177.243.92"
-  proxied = false
-}
-
 resource "cloudflare_page_rule" "all" {
   zone_id = var.site_zone_id
   target  = "${var.site}/*"
