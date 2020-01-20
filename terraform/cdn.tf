@@ -29,8 +29,16 @@
 #   ttl = "86400"
 # }
 
+variable "site_zone_id" {
+  default = "6459a193d396cb3efaa25ebbcf1b41e6"
+}
+
+variable "new_site_zone_id" {
+  default = "e08c9e60d738ce4c21b3301212d5f9f1"
+}
+
 resource "cloudflare_record" "mx" {
-  name     = var.site
+  zone_id  = var.site_zone_id
   type     = "MX"
   name     = var.site
   value    = "mx.yandex.net"
@@ -38,7 +46,7 @@ resource "cloudflare_record" "mx" {
 }
 
 resource "cloudflare_record" "mx_new" {
-  name     = var.new_site
+  zone_id  = var.new_site_zone_id
   type     = "MX"
   name     = var.new_site
   value    = "mx.yandex.net"
@@ -46,42 +54,42 @@ resource "cloudflare_record" "mx_new" {
 }
 
 resource "cloudflare_record" "spf" {
-  name  = var.site
+  zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
   value = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "google" {
-  name  = var.site
+  zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
   value = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
 resource "cloudflare_record" "spf_new" {
-  name  = var.new_site
+  zone_id=var.new_site_zone_id
   type  = "TXT"
   name  = var.new_site
   value = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "yandex" {
-  name  = var.site
+  zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
   value = "yandex-verification: f2121f360f0c70fc"
 }
 
 resource "cloudflare_record" "yandex_new" {
-  name  = var.new_site
+  zone_id=var.new_site_zone_id
   type  = "TXT"
   name  = var.new_site
   value = "yandex-verification: 783f4152e3fc517c"
 }
 
 resource "cloudflare_record" "cname" {
-  name    = var.site
+  zone_id = var.site_zone_id
   type    = "CNAME"
   name    = var.site
   value   = "${var.site}.s3-website.eu-west-2.amazonaws.com"
@@ -89,7 +97,7 @@ resource "cloudflare_record" "cname" {
 }
 
 resource "cloudflare_record" "cname_new" {
-  name    = var.new_site
+  zone_id = var.new_site_zone_id
   type    = "CNAME"
   name    = var.new_site
   value   = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
@@ -97,7 +105,7 @@ resource "cloudflare_record" "cname_new" {
 }
 
 resource "cloudflare_record" "proxy" {
-  name    = var.site
+  zone_id = var.site_zone_id
   type    = "A"
   name    = "proxy.${var.site}"
   value   = "94.177.243.92"
@@ -105,7 +113,7 @@ resource "cloudflare_record" "proxy" {
 }
 
 resource "cloudflare_page_rule" "all" {
-  zone_id = var.site
+  zone_id = var.site_zone_id
   target  = "${var.site}/*"
 
   actions {
