@@ -1,0 +1,41 @@
+- hosts: tundra.dzhus.org
+  vars:
+    # My GPG identity fingerprint
+    encrypt_with_key: "0x81C38A63377EBC45"
+    backup_bucket: dzhus-backups
+  pre_tasks:
+    - terraform:
+        project_path: "../terraform"
+        state: present
+      connection: local
+      become: no
+      # Don't really run `terraform apply`, just read outputs
+      check_mode: yes
+      register: terraform
+    - fail:
+        msg: "Could not see AWS key ID in terraform output (run terraform apply?)"
+      when: terraform.outputs.backup_access_key_id is not defined
+    - fail:
+        msg: "Could not see AWS key secret in terraform output (run terraform apply?)"
+      when: terraform.outputs.backup_secret_access_key is not defined
+    - fail:
+        msg: "Could not see bucket region in terraform output (run terraform apply?)"
+      when: terraform.outputs.backup_bucket_region is not defined
+    - apt:
+        name: awscli
+    - cron:
+        name: "Backup {{ item }} folder to S3"
+        hour: "2"
+        minute: "0"
+        day: "14"
+        job: >
+          curl https://keybase.io/dzhus/pgp_keys.asc | gpg --import &&
+          tar -vc ~dzhus/{{ item }}
+          | gpg --recipient {{ encrypt_with_key }} -e --trust-model=always
+          > {{ item }}.tar.xz &&
+          AWS_ACCESS_KEY_ID={{ terraform.outputs.backup_access_key_id.value }}
+          AWS_SECRET_ACCESS_KEY={{ terraform.outputs.backup_secret_access_key.value }}
+          AWS_DEFAULT_REGION={{ terraform.outputs.backup_bucket_region.value }}
+          aws s3 mv {{ item }}.tar.xz s3://{{ backup_bucket }}
+      with_items:
+        - Sync
