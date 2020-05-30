@@ -19,6 +19,7 @@
         - plugin: cpu
           config:
             - totalcpu = true
+            - report_active = true
         - plugin: disk
           config:
             - mount_points = ["/", "/media"]
