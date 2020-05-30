@@ -34,14 +34,17 @@
         update_cache: yes
 
     - apt:
-        name: syncthing=1.3.3
+        name: syncthing=1.5.0
         update_cache: yes
         cache_valid_time: 300
+      name: Install Syncthing
       notify: Restart Syncthing
 
     - copy:
+        # https://github.com/syncthing/syncthing/tree/master/etc/linux-systemd/system
         src: "files/syncthing@.service"
         dest: "/etc/systemd/system/syncthing@.service"
+      name: Update systemd service file
       notify: Restart Syncthing
 
     - systemd:
