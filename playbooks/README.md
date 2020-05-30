@@ -1,5 +1,11 @@
 # Ansible playbooks to manage my servers
 
+Install required roles
+
+```
+ansible-galaxy install -r requirements.yml
+```
+
 Run as
 
 ```
