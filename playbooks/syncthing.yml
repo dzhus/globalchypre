@@ -6,8 +6,8 @@
         fstype: ext4
         opts: errors=remount-ro,noexec,noatime,nodiratime
         state: mounted
-        dump: 0
-        passno: 2
+        dump: '0'
+        passno: '2'
       register: mounts
 
     - command: reboot
