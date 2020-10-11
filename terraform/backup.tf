@@ -10,17 +10,17 @@ resource "aws_s3_bucket" "backup" {
   }
 }
 
-resource "aws_iam_user" "backup_tundra" {
-  name = "backup.tundra"
+resource "aws_iam_user" "backup" {
+  name = "backup"
 }
 
-resource "aws_iam_access_key" "backup_tundra" {
-  user = aws_iam_user.backup_tundra.name
+resource "aws_iam_access_key" "backup" {
+  user = aws_iam_user.backup.name
 }
 
-resource "aws_iam_user_policy" "backup_tundra" {
+resource "aws_iam_user_policy" "backup" {
   name   = "AllowPushingBackups"
-  user   = aws_iam_user.backup_tundra.name
+  user   = aws_iam_user.backup.name
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -50,12 +50,12 @@ EOF
 }
 
 output "backup_access_key_id" {
-  value     = aws_iam_access_key.backup_tundra.id
+  value     = aws_iam_access_key.backup.id
   sensitive = true
 }
 
 output "backup_secret_access_key" {
-  value     = aws_iam_access_key.backup_tundra.secret
+  value     = aws_iam_access_key.backup.secret
   sensitive = true
 }
 
