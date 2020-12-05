@@ -1,24 +1,3 @@
-- hosts: syncthing:&orangepi
-  tasks:
-    - mount:
-        src: "UUID={{ storage_uuid }}"
-        path: /media
-        fstype: ext4
-        opts: errors=remount-ro,noexec,noatime,nodiratime
-        state: mounted
-        dump: '0'
-        passno: '2'
-      register: mounts
-
-    - command: reboot
-      name: Reboot the board (the playbook will hang now)
-      when: mounts is changed
-
-    - file:
-        path: /media
-        owner: "{{ syncthing_user }}"
-        group: "{{ syncthing_user }}"
-
 - hosts: syncthing
 
   vars:

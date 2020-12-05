@@ -22,7 +22,7 @@
             - report_active = true
         - plugin: disk
           config:
-            - mount_points = ["/", "/media"]
+            - mount_points = ["/"]
         - plugin: io
         - plugin: mem
         - plugin: kernel
