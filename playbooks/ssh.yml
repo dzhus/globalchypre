@@ -4,6 +4,7 @@
   pre_tasks:
     - user:
         name: "{{ my_user }}"
+        # Local password = name
         password: $6$fvtSVxDeH2F9DsLB$gV4CCmzLGphGRFPTDg27MYbhyzH71FFjXCQXsLJ4fHCO0pqHxVAWyJaNUgOfk7RL7tCd217d1Wp4MczVbSsO8/
         groups:
           - adm

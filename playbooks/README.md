@@ -23,3 +23,15 @@ ansible-playbook -u dzhus -b --ask-become-pass main.yml
 Syncthing preserves file permissions, so .torrent files synced to
 Transmission watch directory must be readable by Transmission user
 (it's probably safe to make them `a+r`).
+
+### Configuring Syncthing
+
+Once installed on Opi nodes:
+
+1. Connect to remote Syncthing GUI:
+
+```
+ssh -L 5000:localhost:8384 dzhus@<opi host>
+```
+
+2. Navigate to <http://localhost:5000/>
