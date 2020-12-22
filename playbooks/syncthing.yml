@@ -13,7 +13,7 @@
         update_cache: yes
 
     - apt:
-        name: syncthing=1.5.0
+        name: syncthing=1.12.0
         update_cache: yes
         cache_valid_time: 300
       name: Install Syncthing
