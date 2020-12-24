@@ -1,0 +1,19 @@
+- hosts: radio
+  tasks:
+    - name: FlightAware repo key
+      apt_key:
+        id: 4E49CAF6B9F2BF8FC240E4BAB931BB28DE85F0DD
+        keyserver: keyserver.ubuntu.com
+
+    - apt_repository:
+        repo: 'deb http://flightaware.com/adsb/piaware/files/packages stretch piaware'
+        state: present
+        filename: piaware-stretch
+        update_cache: yes
+
+    - apt:
+        name:
+          - dump1090-fa
+          - rtl-sdr
+        update_cache: yes
+        cache_valid_time: 300

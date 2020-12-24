@@ -5,3 +5,4 @@
 - import_playbook: docker.yml
 - import_playbook: tick-telegraf.yml
 - import_playbook: syncthing.yml
+- import_playbook: radio.yml
