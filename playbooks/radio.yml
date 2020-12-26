@@ -1,19 +1,32 @@
 - hosts: radio
   tasks:
-    - name: FlightAware repo key
-      apt_key:
-        id: 4E49CAF6B9F2BF8FC240E4BAB931BB28DE85F0DD
-        keyserver: keyserver.ubuntu.com
-
-    - apt_repository:
-        repo: 'deb http://flightaware.com/adsb/piaware/files/packages stretch piaware'
-        state: present
-        filename: piaware-stretch
-        update_cache: yes
-
     - apt:
         name:
-          - dump1090-fa
-          - rtl-sdr
+          - snapd
         update_cache: yes
         cache_valid_time: 300
+    # As per https://github.com/tsunghanliu/adsb-box.snap#blacklist-the-drivers-of-rtlsdr-devices
+    - community.general.kernel_blacklist:
+        name: "{{ item }}"
+      with_items:
+        - dvb_usb_rtl28xxu
+        - rtl2832
+        - e4000
+      register: modules
+    - reboot:
+      when: modules.changed
+    - community.general.snap:
+        name:
+          - adsb-box
+      register: adsb
+    - ansible.builtin.command: snap connect {{ item }}
+      with_items:
+        - adsb-box:raw-usb
+        - adsb-box:process-control
+        - adsb-box:system-observe
+        - adsb-box:network-observe
+        - adsb-box:hardware-observe
+        - adsb-box:mount-observe
+      when: adsb.changed
+    - ansible.builtin.command: snap restart adsb-box
+      when: adsb.changed
