@@ -28,5 +28,9 @@
         - adsb-box:hardware-observe
         - adsb-box:mount-observe
       when: adsb.changed
+
+    - ansible.builtin.command: "snap set adsb-box receiver.longitude=-0.21752 receiver.latitude=51.45958 receiver.altitude=20"
+      when: adsb.changed
+
     - ansible.builtin.command: snap restart adsb-box
       when: adsb.changed
