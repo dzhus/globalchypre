@@ -34,3 +34,15 @@
 
     - ansible.builtin.command: snap restart adsb-box
       when: adsb.changed
+
+  # 2020-12-26 TODO gain settings for adsb-box.dump1090 (GAIN=agc)
+  #
+  # TODO JSON_LOCATION_ACCURACY=approximate
+
+  # 2020-12-26 TODO Auto-enable bias-t via sudo rtl_biast -d 0 -b 1
+  # BEFORE starting the adsb-box
+
+  # 2020-12-28 TODO After claiming on Flightaware, set feeder ID
+  # manually via:
+  #
+  # sudo adsb-box.piaware-config feeder-id <...ID from FA page...>
