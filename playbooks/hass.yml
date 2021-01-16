@@ -8,15 +8,3 @@
     - community.general.snap:
         name:
           - home-assistant-snap
-      register: adsb
-  roles:
-    - name: sansible.mosquitto
-      sansible_mosquitto_settings:
-        allow_anonymous: "false"
-      sansible_mosquitto_password_file: /etc/mosquitto/passwd
-      sansible_mosquitto_user_list:
-        zigbee2mqtt: "$6$2Rx9IZNvqrTxwS+K$6bKga17Kq+e6N4nFO/685UNUinDibUFpQbOzn9a7Su94PIfAZpBVik+I2weqeQOq2AzQgcGviohZsou6CbBZhQ=="
-        hass: "$6$xtAOy6AKWd+PmRGe$kUdMqZw4ekhSoc3mwKrPkcB/lFozDtJRHlM1433wEDfjAynHVZhy9SVHOcT2RuAz7Nxt1q+GGnc3CcYxhcBB8Q=="
-    # TODO Install janlochi-zigbee2mqtt snap and tweak /var/snap/janlochi-zigbee2mqtt/current/configuration.yml
-    #
-    # Connect to mqtt://localhost via HA => sensors are visible
