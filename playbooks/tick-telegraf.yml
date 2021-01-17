@@ -27,6 +27,7 @@
         - plugin: mem
         - plugin: kernel
         - plugin: system
+        - plugin: temp
         - plugin: swap
         - plugin: net
         - plugin: processes
