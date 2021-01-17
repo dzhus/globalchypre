@@ -1,0 +1,15 @@
+- hosts: orangepi
+  tasks:
+    # From https://forum.armbian.com/topic/12647-orange-pi-zero-freezing-randomly/
+    - ansible.builtin.lineinfile:
+        path: /etc/default/cpufrequtils
+        state: present
+        # https://docs.armbian.com/User-Guide_Fine-Tuning/
+        line: GOVERNOR=performance
+        regexp: "^GOVERNOR="
+      notify: Restart cpufrequtils
+  handlers:
+    - name: Restart cpufrequtils
+      service:
+        name: cpufrequtils
+        state: restarted
