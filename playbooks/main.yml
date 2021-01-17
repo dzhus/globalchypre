@@ -5,5 +5,7 @@
 - import_playbook: wifi.yml
 - import_playbook: docker.yml
 - import_playbook: tick-telegraf.yml
+- import_playbook: cpufreq.yml
 - import_playbook: syncthing.yml
+- import_playbook: hass.yml
 - import_playbook: radio.yml
