@@ -5,7 +5,7 @@
         path: /etc/default/cpufrequtils
         state: present
         # https://docs.armbian.com/User-Guide_Fine-Tuning/
-        line: GOVERNOR=performance
+        line: GOVERNOR=powersave
         regexp: "^GOVERNOR="
       notify: Restart cpufrequtils
   handlers:
