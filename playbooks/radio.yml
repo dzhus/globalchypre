@@ -41,6 +41,9 @@
 
   # 2020-12-26 TODO Auto-enable bias-t via sudo rtl_biast -d 0 -b 1
   # BEFORE starting the adsb-box
+  #
+  # 2021-03-01 Looks like it's always enabled (I may have added it to
+  # EEPROM)
 
   # 2020-12-28 TODO After claiming on Flightaware, set feeder ID
   # manually via:
