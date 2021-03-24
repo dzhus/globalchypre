@@ -1,4 +1,13 @@
 - hosts: hass
+  pre_tasks:
+    - include_vars:
+        file: "secret.yml"
+  vars:
+    influxdb_hass_config:
+      api_version: 2
+      organization: "{{ influx_org }}"
+      token: "{{ hass_influx_token }}"
+      ssl: false
   tasks:
     - apt:
         name:
@@ -14,6 +23,13 @@
         insertafter: "default_config:"
         regexp: "^recorder"
         line: "recorder: { commit_interval: 60, purge_keep_days: 60 }"
+      notify: Restart home-assistant
+    - ansible.builtin.lineinfile:
+        path: /var/snap/home-assistant-snap/current/configuration.yaml
+        state: present
+        insertafter: "^recorder:"
+        regexp: "^influxdb"
+        line: "influxdb: {{ influxdb_hass_config | to_yaml(width=1000) }}"
       notify: Restart home-assistant
   handlers:
     - name: Restart home-assistant
