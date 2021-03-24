@@ -6,8 +6,8 @@
     influxdb_hass_config:
       api_version: 2
       organization: "{{ influx_org }}"
+      host: 44.241.28.128
       token: "{{ hass_influx_token }}"
-      ssl: false
   tasks:
     - apt:
         name:
