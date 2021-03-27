@@ -5,8 +5,11 @@
   vars:
     influxdb_hass_config:
       api_version: 2
-      organization: "{{ influx_org }}"
       host: 44.241.28.128
+      ssl: false
+      verify_ssl: false
+      organization: "{{ influx_org }}"
+      bucket: hass
       token: "{{ hass_influx_token }}"
   tasks:
     - apt:
