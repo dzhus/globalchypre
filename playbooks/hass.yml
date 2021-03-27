@@ -17,6 +17,13 @@
     - community.general.snap:
         name:
           - home-assistant-snap
+      register: hass
+    # This is to allow access to /dev/... with CC25xx dongle (the error
+    # looks like an AppArmor "DENIED" message)
+    - ansible.builtin.command: snap connect home-assistant-snap:raw-usb
+      when: hass.changed
+    # TODO Could the namespace issue also be due to missing network
+    # slot connection?
     - ansible.builtin.lineinfile:
         path: /var/snap/home-assistant-snap/current/configuration.yaml
         state: present
