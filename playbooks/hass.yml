@@ -15,7 +15,6 @@
     - apt:
         name:
           - snapd
-          - docker.io
           - usb-modeswitch # For the 4G Dongle
         update_cache: yes
         cache_valid_time: 300
@@ -30,6 +29,7 @@
     # TODO Could the namespace issue also be due to missing network
     # slot connection?
     - community.docker.docker_container:
+        state: absent
         name: cloudflare-ddns
         image: "oznu/cloudflare-ddns@sha256:19bd73d8aea9641dc329ec18ae693b2b9c33ff7cdc007f368266ce584446f995"
         env:
@@ -45,7 +45,7 @@
       notify: Restart home-assistant
     - ansible.builtin.lineinfile:
         path: /var/snap/home-assistant-snap/current/configuration.yaml
-        state: present
+        state: absent
         insertafter: "^recorder:"
         regexp: "^influxdb"
         line: "influxdb: {{ influxdb_hass_config | to_yaml(width=1000) }}"
