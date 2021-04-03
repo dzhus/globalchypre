@@ -2,15 +2,6 @@
   pre_tasks:
     - include_vars:
         file: "secret.yml"
-  vars:
-    influxdb_hass_config:
-      api_version: 2
-      host: 44.241.28.128
-      ssl: false
-      verify_ssl: false
-      organization: "{{ influx_org }}"
-      bucket: hass
-      token: "{{ hass_influx_token }}"
   tasks:
     - apt:
         name:
@@ -28,27 +19,12 @@
       when: hass.changed
     # TODO Could the namespace issue also be due to missing network
     # slot connection?
-    - community.docker.docker_container:
-        state: absent
-        name: cloudflare-ddns
-        image: "oznu/cloudflare-ddns@sha256:19bd73d8aea9641dc329ec18ae693b2b9c33ff7cdc007f368266ce584446f995"
-        env:
-          API_KEY: "{{ cf_token }}"
-          SUBDOMAIN: "{{ inventory_hostname }}"
-          ZONE: djouce.eu
     - ansible.builtin.lineinfile:
         path: /var/snap/home-assistant-snap/current/configuration.yaml
         state: present
         insertafter: "default_config:"
         regexp: "^recorder"
         line: "recorder: { commit_interval: 60, purge_keep_days: 60 }"
-      notify: Restart home-assistant
-    - ansible.builtin.lineinfile:
-        path: /var/snap/home-assistant-snap/current/configuration.yaml
-        state: absent
-        insertafter: "^recorder:"
-        regexp: "^influxdb"
-        line: "influxdb: {{ influxdb_hass_config | to_yaml(width=1000) }}"
       notify: Restart home-assistant
   handlers:
     - name: Restart home-assistant
