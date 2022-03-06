@@ -1,6 +1,6 @@
 [orangepi]
 opi1 ansible_host=192.168.43.238 ansible_python_interpreter=/usr/bin/python3
-opi2 ansible_host=192.168.43.202 ansible_python_interpreter=/usr/bin/python3
+opi2 ansible_host=192.168.8.102 ansible_python_interpreter=/usr/bin/python3
 opi3 ansible_host=192.168.43.249 ansible_python_interpreter=/usr/bin/python3
 
 [syncthing]
