@@ -10,7 +10,7 @@
         # which means all connections will retry up to 4 times. This
         # can break connectivity if Wifi disappears for prolonged
         # periods of time, so we set it to 0 (infinite).
-        state: present
+        state: absent
         insertafter: '\[main\]'
         line: autoconnect-retries-default=0
   handlers:
