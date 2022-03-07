@@ -8,3 +8,5 @@
 - import_playbook: syncthing.yml
 - import_playbook: hass.yml
 - import_playbook: radio.yml
+- import_playbook: transmission.yml
+- import_playbook: media.yml

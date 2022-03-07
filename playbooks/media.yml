@@ -5,3 +5,14 @@
           - minidlna
         update_cache: yes
         cache_valid_time: 300
+    - lineinfile:
+        path: /etc/minidlna.conf
+        state: present
+        regexp: '^media_dir'
+        line: 'media_dir=V,/var/lib/transmission-daemon/downloads'
+      notify: Restart minidlna
+  handlers:
+    - name: Restart minidlna
+      service:
+        name: minidlna
+        state: restarted
