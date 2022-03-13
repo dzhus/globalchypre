@@ -2,6 +2,7 @@
   tasks:
     - apt:
         name:
+          - rtl-sdr
           - snapd
         update_cache: yes
         cache_valid_time: 300
@@ -32,12 +33,11 @@
     - ansible.builtin.command: "snap set adsb-box receiver.longitude=-0.21 receiver.latitude=51.46 receiver.altitude=20"
       when: adsb.changed
 
-    - ansible.builtin.command: snap restart adsb-box
+    - ansible.builtin.command: "snap set adsb-box dump1090.location-accuracy=approximate"
       when: adsb.changed
 
-  # 2020-12-26 TODO gain settings for adsb-box.dump1090 (GAIN=agc)
-  #
-  # TODO JSON_LOCATION_ACCURACY=approximate
+    - ansible.builtin.command: snap restart adsb-box
+      when: adsb.changed
 
   # 2020-12-26 TODO Auto-enable bias-t via sudo rtl_biast -d 0 -b 1
   # BEFORE starting the adsb-box
