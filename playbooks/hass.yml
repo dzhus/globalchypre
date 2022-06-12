@@ -12,4 +12,5 @@
     - community.general.snap:
         name:
           - home-assistant-snap
+        state: absent
       register: hass
