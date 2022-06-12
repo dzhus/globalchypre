@@ -9,8 +9,4 @@
           - usb-modeswitch # For the 4G Dongle
         update_cache: yes
         cache_valid_time: 300
-    - community.general.snap:
-        name:
-          - home-assistant-snap
         state: absent
-      register: hass
