@@ -42,17 +42,27 @@ EOF
 
 }
 
-resource "aws_iam_user" "site_travis" {
-  name = "site.travis"
+resource "aws_iam_user" "site_ci" {
+  name = "site.ci"
 }
 
-resource "aws_iam_access_key" "site_travis" {
-  user = aws_iam_user.site_travis.name
+resource "aws_iam_access_key" "site_ci" {
+  user = aws_iam_user.site_ci.name
 }
 
-resource "aws_iam_user_policy" "site_travis" {
+output "site_ci_access_key_id" {
+  value     = aws_iam_access_key.site_ci.id
+  sensitive = true
+}
+
+output "site_ci_secret_access_key" {
+  value     = aws_iam_access_key.site_ci.secret
+  sensitive = true
+}
+
+resource "aws_iam_user_policy" "site_ci" {
   name   = "AllowSitePushing"
-  user   = aws_iam_user.site_travis.name
+  user   = aws_iam_user.site_ci.name
   policy = <<EOF
 {
     "Version": "2012-10-17",
