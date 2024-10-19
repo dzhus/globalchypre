@@ -2,7 +2,6 @@
 
 - import_playbook: ssh.yml
 - import_playbook: basic.yml
-- import_playbook: docker.yml
 - import_playbook: tick-telegraf.yml
 - import_playbook: cpufreq.yml
 - import_playbook: syncthing.yml
