@@ -4,10 +4,18 @@ variable "backup_bucket" {
 
 resource "aws_s3_bucket" "backup" {
   bucket = var.backup_bucket
+}
 
-  versioning {
-    enabled = true
+resource "aws_s3_bucket_versioning" "backup" {
+  bucket = aws_s3_bucket.backup.id
+  versioning_configuration {
+    status = "Enabled"
   }
+}
+
+import {
+  to = aws_s3_bucket_versioning.backup
+  id = "dzhus-backups"
 }
 
 resource "aws_iam_user" "backup" {
