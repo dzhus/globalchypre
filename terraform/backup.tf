@@ -13,11 +13,6 @@ resource "aws_s3_bucket_versioning" "backup" {
   }
 }
 
-import {
-  to = aws_s3_bucket_versioning.backup
-  id = "dzhus-backups"
-}
-
 resource "aws_iam_user" "backup" {
   name = "backup"
 }
