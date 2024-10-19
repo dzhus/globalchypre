@@ -8,4 +8,10 @@ terraform {
       source = "cloudflare/cloudflare"
     }
   }
+
+  backend "s3" {
+    bucket = "dzhus-infrastructure"
+    key    = "terraform.tfstate"
+    region = "eu-west-1"
+  }
 }
