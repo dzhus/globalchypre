@@ -8,19 +8,37 @@ variable "site" {
 
 resource "aws_s3_bucket" "new_site" {
   bucket = var.new_site
-  website {
-    redirect_all_requests_to = aws_s3_bucket.site.bucket
+}
+
+resource "aws_s3_bucket_website_configuration" "new_site" {
+  bucket = aws_s3_bucket.new_site.id
+  redirect_all_requests_to {
+    host_name = aws_s3_bucket.site.bucket
   }
+}
+
+import {
+  to = aws_s3_bucket_website_configuration.new_site
+  id = "djouce.eu"
 }
 
 resource "aws_s3_bucket" "site" {
   bucket = var.site
 
-  website {
-    index_document = "index.html"
-    error_document = "error.html"
-  }
+}
 
+resource "aws_s3_bucket_website_configuration" "site" {
+  bucket = aws_s3_bucket.site.id
+  index_document {
+    suffix = "index.html"
+  }
+  error_document {
+    key = "error.html"
+  }
+}
+
+resource "aws_s3_bucket_policy" "site" {
+  bucket = aws_s3_bucket.site.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -39,7 +57,16 @@ resource "aws_s3_bucket" "site" {
     ]
 }
 EOF
+}
 
+import {
+  to = aws_s3_bucket_website_configuration.site
+  id = "dzhus.org"
+}
+
+import {
+  to = aws_s3_bucket_policy.site
+  id = "dzhus.org"
 }
 
 resource "aws_iam_user" "site_ci" {
