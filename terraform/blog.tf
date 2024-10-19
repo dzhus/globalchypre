@@ -17,11 +17,6 @@ resource "aws_s3_bucket_website_configuration" "new_site" {
   }
 }
 
-import {
-  to = aws_s3_bucket_website_configuration.new_site
-  id = "djouce.eu"
-}
-
 resource "aws_s3_bucket" "site" {
   bucket = var.site
 
@@ -57,16 +52,6 @@ resource "aws_s3_bucket_policy" "site" {
     ]
 }
 EOF
-}
-
-import {
-  to = aws_s3_bucket_website_configuration.site
-  id = "dzhus.org"
-}
-
-import {
-  to = aws_s3_bucket_policy.site
-  id = "dzhus.org"
 }
 
 resource "aws_iam_user" "site_ci" {
