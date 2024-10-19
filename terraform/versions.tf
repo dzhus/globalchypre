@@ -4,6 +4,9 @@ terraform {
     aws = {
       source = "hashicorp/aws"
     }
+    b2 = {
+      source = "Backblaze/b2"
+    }
     cloudflare = {
       source = "cloudflare/cloudflare"
     }
