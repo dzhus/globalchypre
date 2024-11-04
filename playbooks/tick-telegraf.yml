@@ -24,9 +24,7 @@
         - plugin: disk
           config:
             - mount_points = ["/"]
-        - plugin: diskio
         - plugin: mem
-        - plugin: kernel
         - plugin: system
         - plugin: temp
         - plugin: swap
