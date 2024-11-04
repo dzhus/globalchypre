@@ -1,0 +1,20 @@
+flowchart TD
+    InfluxDB["fa:fa-cloud InfluxDB Cloud"];
+    Syncthing["fa:fa-cloud Syncthing pool"];
+
+    opi1 --> InfluxDB;
+    opi2 --> InfluxDB;
+
+    opi1 --> Syncthing;
+    opi2 --> Syncthing;
+
+    laptop["fa:fa-laptop Laptop"]
+    laptop --> Syncthing;
+
+    phone["fa:fa-tablet Phone"];
+    phone --> Syncthing;
+
+    Internet[fa:fa-cloud Internet]
+
+    laptop --> Internet --"Cloudflare tunnel"--> opi1
+    Internet --"Cloudflare tunnel"--> opi2
