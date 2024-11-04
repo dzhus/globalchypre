@@ -12,7 +12,8 @@
         - type: influxdb_v2
           config:
             - urls = ["{{ telegraf_influx_url }}"]
-            - token = "{{ telegraf_influx_token }}"
+            # TODO Source secret token from ENV / prompt?
+            - token = "TODO"
             - organization = "{{ telegraf_influx_org }}"
             - bucket = "{{ telegraf_influx_bucket }}"
       telegraf_plugins_default:
