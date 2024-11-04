@@ -41,7 +41,7 @@ resource "cloudflare_record" "mx" {
   zone_id  = var.site_zone_id
   type     = "MX"
   name     = var.site
-  value    = "mx.yandex.net"
+  content  = "mx.yandex.net"
   priority = "10"
 }
 
@@ -49,7 +49,7 @@ resource "cloudflare_record" "mx_new" {
   zone_id  = var.new_site_zone_id
   type     = "MX"
   name     = var.new_site
-  value    = "mx.yandex.net"
+  content  = "mx.yandex.net"
   priority = "10"
 }
 
@@ -57,42 +57,42 @@ resource "cloudflare_record" "spf" {
   zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
-  value = "v=spf1 redirect=_spf.yandex.net"
+  content = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "google" {
   zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
-  value = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
+  content = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
 resource "cloudflare_record" "spf_new" {
   zone_id=var.new_site_zone_id
   type  = "TXT"
   name  = var.new_site
-  value = "v=spf1 redirect=_spf.yandex.net"
+  content = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "yandex" {
   zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
-  value = "yandex-verification: f2121f360f0c70fc"
+  content = "yandex-verification: f2121f360f0c70fc"
 }
 
 resource "cloudflare_record" "yandex_new" {
   zone_id=var.new_site_zone_id
   type  = "TXT"
   name  = var.new_site
-  value = "yandex-verification: 783f4152e3fc517c"
+  content = "yandex-verification: 783f4152e3fc517c"
 }
 
 resource "cloudflare_record" "cname" {
   zone_id = var.site_zone_id
   type    = "CNAME"
   name    = var.site
-  value   = "${var.site}.s3-website.eu-west-2.amazonaws.com"
+  content = "${var.site}.s3-website.eu-west-2.amazonaws.com"
   proxied = true
 }
 
@@ -100,7 +100,7 @@ resource "cloudflare_record" "cname_new" {
   zone_id = var.new_site_zone_id
   type    = "CNAME"
   name    = var.new_site
-  value   = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
+  content = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
   proxied = true
 }
 
