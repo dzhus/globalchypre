@@ -1,10 +1,11 @@
 - hosts: telegraf
   pre_tasks:
-    - include_vars:
-        file: "secret.yml"
     - apt:
         package: lm-sensors
         state: present
+  vars_prompt:
+    - name: telegraf_influx_token
+      prompt: Telegraf InfluxDB secret Token
   roles:
     - role: dj-wasabi.telegraf
       telegraf_agent_package_state: latest
@@ -12,8 +13,7 @@
         - type: influxdb_v2
           config:
             - urls = ["{{ telegraf_influx_url }}"]
-            # TODO Source secret token from ENV / prompt?
-            - token = "TODO"
+            - token = "{{ telegraf_influx_token }}"
             - organization = "{{ telegraf_influx_org }}"
             - bucket = "{{ telegraf_influx_bucket }}"
       telegraf_plugins_default:
