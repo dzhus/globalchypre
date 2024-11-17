@@ -13,7 +13,7 @@
         shell: /bin/bash
     - authorized_key:
         user: "{{ my_user }}"
-        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCb33HWPPa0QuqKgpvMVJXeobh+WBt+wfvF7EGvhdJV65sLnoPq/U/MJ3KepYM3cNXdoXFjA6ClkxZ6llmBxwvoNShjwruUtRquG+wl0ahq7vq7INg5/ji9pUz4zOb69semFRSXPoX9OaNMR21YKf73/cNm05msJQ/9gQkciT4lC5d1FTB22LVxd7+9A5jjYPnblJSvhxL6jQ3cMgWJeAJIJLF3zg81eE1WS/fOFCCje6g0i00y3L/rnXGWV2x8Nh7BSnMr+X6aUw00eCP6FJhYvEGghMyQbvg+kmq/39RxGCgsiyyDX3uzr1yhotOF6Z3OzEcZM3nUJwbli6JC6vzR dzhus-yubikey-2017-08-09
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDtSBM4g1daVGCUW1JY4yCVrQN3fDlwdXF9beImKcckVyKQh0lBx1UXzNdjlI2OK0TC3BeMkrd7QdoVLebBkDOpl5agu9N9AERSWEh1BOiXiPNY3fQjJT4I4h8fKAFggVZ42p+Du6KSkPQdgMhXUW+cKTFh2msG2YGY+wwxoXtBkNxgkj1dnQXjd0hU7Adr43X03Q2xTpUySQPp2/yBvWd9sM6BSn+Ig7ZXMU362D2Bv5OL1RdOvquBs23b0KtbffOVp4uPzE+LFrhTkQ2Cp2JM6YyDIpCL8JEpU9hsozaOX5BYv0DpYfXe0IMwuoHMOphIC5fQZRrRJzh600BUxWPX dzhus-yubikey-2024-11-11
 
   roles:
     - role: willshersystems.sshd
