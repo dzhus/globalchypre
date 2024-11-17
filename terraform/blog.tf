@@ -64,7 +64,6 @@ resource "aws_iam_access_key" "site_ci" {
 
 output "site_ci_access_key_id" {
   value     = aws_iam_access_key.site_ci.id
-  sensitive = true
 }
 
 output "site_ci_secret_access_key" {

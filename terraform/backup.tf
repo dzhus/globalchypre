@@ -54,7 +54,6 @@ EOF
 
 output "backup_access_key_id" {
   value     = aws_iam_access_key.backup.id
-  sensitive = true
 }
 
 output "backup_secret_access_key" {
@@ -64,5 +63,4 @@ output "backup_secret_access_key" {
 
 output "backup_bucket_region" {
   value     = aws_s3_bucket.backup.region
-  sensitive = true
 }
