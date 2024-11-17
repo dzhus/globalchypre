@@ -1,10 +1,10 @@
 - hosts: [opi1]
   vars_prompt:
-    - name: cloudflare_tunnel_credential
+    - name: cloudflare_tunnel_token
       prompt: Clouflare Tunnel secret Token
   roles:
     - role: sebdanielsson.cloudflared
       vars:
         cloudflare_tunnel_enable: true
-        cloudflare_tunnel_credential: "{{ cloudflare_tunnel_credential }}"
+        cloudflare_tunnel_credential: "{{ cloudflare_tunnel_token }}"
       state: present
