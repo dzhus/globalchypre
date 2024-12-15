@@ -33,10 +33,6 @@ variable "site_zone_id" {
   default = "6459a193d396cb3efaa25ebbcf1b41e6"
 }
 
-variable "new_site_zone_id" {
-  default = "e08c9e60d738ce4c21b3301212d5f9f1"
-}
-
 resource "cloudflare_record" "mx" {
   zone_id  = var.site_zone_id
   type     = "MX"
@@ -53,14 +49,6 @@ resource "cloudflare_record" "mx2" {
   priority = "20"
 }
 
-resource "cloudflare_record" "mx_new" {
-  zone_id  = var.new_site_zone_id
-  type     = "MX"
-  name     = var.new_site
-  content  = "mx.yandex.net"
-  priority = "10"
-}
-
 resource "cloudflare_record" "spf" {
   zone_id=var.site_zone_id
   type  = "TXT"
@@ -73,13 +61,6 @@ resource "cloudflare_record" "google" {
   type  = "TXT"
   name  = var.site
   content = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
-}
-
-resource "cloudflare_record" "spf_new" {
-  zone_id=var.new_site_zone_id
-  type  = "TXT"
-  name  = var.new_site
-  content = "v=spf1 redirect=_spf.yandex.net"
 }
 
 resource "cloudflare_record" "yandex" {
@@ -96,26 +77,11 @@ resource "cloudflare_record" "proton" {
   content = "protonmail-verification=7d61974cd5924b214746355e6e27cf24608f3712"
 }
 
-resource "cloudflare_record" "yandex_new" {
-  zone_id=var.new_site_zone_id
-  type  = "TXT"
-  name  = var.new_site
-  content = "yandex-verification: 783f4152e3fc517c"
-}
-
 resource "cloudflare_record" "cname" {
   zone_id = var.site_zone_id
   type    = "CNAME"
   name    = var.site
   content = "${var.site}.s3-website.eu-west-2.amazonaws.com"
-  proxied = true
-}
-
-resource "cloudflare_record" "cname_new" {
-  zone_id = var.new_site_zone_id
-  type    = "CNAME"
-  name    = var.new_site
-  content = "${var.new_site}.s3-website.eu-west-2.amazonaws.com"
   proxied = true
 }
 
