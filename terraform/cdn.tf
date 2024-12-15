@@ -27,6 +27,30 @@ resource "cloudflare_record" "spf" {
   content = "v=spf1 include:_spf.protonmail.ch ~all"
 }
 
+resource "cloudflare_record" "dkim_cname1" {
+  zone_id = var.site_zone_id
+  type    = "CNAME"
+  name    = "protonmail._domainkey.${var.site}"
+  content = "protonmail.domainkey.dliipls7c3aersicqovyzvwsix3bfuj2eu57cnnsdiun6rh6blmma.domains.proton.ch."
+  proxied = false
+}
+
+resource "cloudflare_record" "dkim_cname2" {
+  zone_id = var.site_zone_id
+  type    = "CNAME"
+  name    = "protonmail2._domainkey.${var.site}"
+  content = "protonmail2.domainkey.dliipls7c3aersicqovyzvwsix3bfuj2eu57cnnsdiun6rh6blmma.domains.proton.ch."
+  proxied = false
+}
+
+resource "cloudflare_record" "dkim_cname3" {
+  zone_id = var.site_zone_id
+  type    = "CNAME"
+  name    = "protonmail3._domainkey.${var.site}"
+  content = "protonmail3.domainkey.dliipls7c3aersicqovyzvwsix3bfuj2eu57cnnsdiun6rh6blmma.domains.proton.ch."
+  proxied = false
+}
+
 resource "cloudflare_record" "google" {
   zone_id=var.site_zone_id
   type  = "TXT"
