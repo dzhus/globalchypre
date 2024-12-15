@@ -51,6 +51,13 @@ resource "cloudflare_record" "dkim_cname3" {
   proxied = false
 }
 
+resource "cloudflare_record" "dmarc" {
+  zone_id = var.site_zone_id
+  type    = "TXT"
+  name    = "_dmarc.${var.site}"
+  content = "v=DMARC1; p=quarantine"
+}
+
 resource "cloudflare_record" "google" {
   zone_id=var.site_zone_id
   type  = "TXT"
