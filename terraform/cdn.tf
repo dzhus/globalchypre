@@ -41,8 +41,16 @@ resource "cloudflare_record" "mx" {
   zone_id  = var.site_zone_id
   type     = "MX"
   name     = var.site
-  content  = "mx.yandex.net"
+  content  = "mail.protonmail.ch"
   priority = "10"
+}
+
+resource "cloudflare_record" "mx2" {
+  zone_id  = var.site_zone_id
+  type     = "MX"
+  name     = var.site
+  content  = "mailsec.protonmail.ch"
+  priority = "20"
 }
 
 resource "cloudflare_record" "mx_new" {
@@ -57,7 +65,7 @@ resource "cloudflare_record" "spf" {
   zone_id=var.site_zone_id
   type  = "TXT"
   name  = var.site
-  content = "v=spf1 redirect=_spf.yandex.net"
+  content = "v=spf1 include:_spf.protonmail.ch ~all"
 }
 
 resource "cloudflare_record" "google" {
@@ -79,6 +87,13 @@ resource "cloudflare_record" "yandex" {
   type  = "TXT"
   name  = var.site
   content = "yandex-verification: f2121f360f0c70fc"
+}
+
+resource "cloudflare_record" "proton" {
+  zone_id=var.site_zone_id
+  type  = "TXT"
+  name  = var.site
+  content = "protonmail-verification=7d61974cd5924b214746355e6e27cf24608f3712"
 }
 
 resource "cloudflare_record" "yandex_new" {
