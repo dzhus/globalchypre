@@ -65,13 +65,6 @@ resource "cloudflare_record" "google" {
   content = "google-site-verification=rIbMUrGpzR_1z0ENLgQ4DqlS8ky0_umYbLxfl0Bi9vA"
 }
 
-resource "cloudflare_record" "yandex" {
-  zone_id=var.site_zone_id
-  type  = "TXT"
-  name  = var.site
-  content = "yandex-verification: f2121f360f0c70fc"
-}
-
 resource "cloudflare_record" "proton" {
   zone_id=var.site_zone_id
   type  = "TXT"
