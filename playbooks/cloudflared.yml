@@ -1,5 +1,4 @@
-- hosts: [opi1]
-  vars_prompt:
+- vars_prompt:
     - name: cloudflare_tunnel_token
       prompt: Clouflare Tunnel secret Token
   # Inspired by sebdanielsson.cloudflared role
