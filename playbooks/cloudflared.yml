@@ -32,3 +32,5 @@
       ansible.builtin.command:
         cmd: "cloudflared service install {{ cloudflare_tunnel_token }}"
         creates: /etc/systemd/system/cloudflared.service
+
+# After this, just set up ProxyCommand on the client side as per https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/use-cases/ssh/ssh-cloudflared-authentication/#2-connect-as-a-user
