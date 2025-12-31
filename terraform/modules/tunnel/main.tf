@@ -10,7 +10,9 @@ resource "random_password" "tunnel_secret" {
   length = 64
 }
 
-# This requires CLOUDFLARE_API_TOKEN with `Cloudflare Tunnel:Edit` permissions
+# This requires CLOUDFLARE_API_TOKEN (NOT the account-owned one, but
+# from https://dash.cloudflare.com/profile/api-tokens) with
+# `Cloudflare Tunnel:Edit` and `Zone DNS:Edit` permissions
 resource "cloudflare_zero_trust_tunnel_cloudflared" "ssh" {
   account_id = var.account_id
   name       = var.tunnel_name
