@@ -1,3 +1,5 @@
 - hosts: media
   roles:
-    - { role: danielkoster.transmission-daemon }
+    - role: danielkoster.transmission-daemon
+      vars:
+        transmission_rpc_whitelist: "127.0.0.1,100.*.*.*"
