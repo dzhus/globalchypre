@@ -4,16 +4,17 @@
     syncthing_service: syncthing@{{ syncthing_user }}.service
 
   tasks:
-    - apt_key:
-        id: FBA2E162F2F44657B38F0309E5665F9BD5970C47
+    - ansible.builtin.get_url:
         url: https://syncthing.net/release-key.gpg
+        dest: /etc/apt/keyrings/syncthing-archive-keyring.gpg
+        checksum: sha256:c38853d2ccb890ae428e1fbf05d8c8fe0ba6f560bd050e161fb4e5324cdb4a9b
 
     - apt_repository:
         repo: deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2
         update_cache: yes
 
     - apt:
-        name: syncthing=1.28.0
+        name: syncthing=2.0.14
         update_cache: yes
         cache_valid_time: 300
       name: Install Syncthing
