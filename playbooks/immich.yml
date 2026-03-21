@@ -12,8 +12,9 @@
         job: >-
           cd ~dzhus/immich &&
           backup_name="backup-$(date --iso-8601=date).tar" &&
-          tar cf "$backup_name" library/upload/ library/profile/ library/library/ library/backups/$(ls library/backups | tail -n1) &&
+          tmp_backup="$(mktemp /tmp/immich-backup-XXXXXXXXXX.tar)" &&
+          tar cf "$tmp_backup" library/upload/ library/profile/ library/library/ library/backups/$(ls library/backups | tail -n1) &&
           mkdir -p ~dzhus/Sync/immich-backups &&
-          cp "$backup_name" ~dzhus/Sync/immich-backups/ &&
+          cp "$tmp_backup" ~dzhus/Sync/immich-backups/"$backup_name" &&
           (cd ~dzhus/Sync/immich-backups && ls -1t backup-*.tar 2>/dev/null | tail -n +8 | xargs -r rm -f) &&
-          rm -f "$backup_name"
+          rm -f "$tmp_backup"
