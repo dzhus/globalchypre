@@ -1,0 +1,27 @@
+- hosts: g4
+  become: true
+  vars_prompt:
+    - name: backup_access_key_id
+      prompt: "Backup AWS access key ID"
+      private: false
+    - name: backup_secret_access_key
+      prompt: "Backup AWS secret access key"
+      private: true
+
+  tasks:
+    - name: Install awscli
+      snap:
+        name: aws-cli
+        classic: true
+        state: present
+
+    - name: Ensure nightly Immich backup cron exists for dzhus
+      cron:
+        name: nightly immich backup
+        user: dzhus
+        minute: "0"
+        hour: "4"
+        job: >-
+          cd ~dzhus/immich &&
+          tar cf backup-$(date --iso-8601=date).tar library/upload/ library/profile/ library/library/ library/backups/$(ls library/backups | tail -n1) &&
+          AWS_ACCESS_KEY_ID={{ backup_access_key_id | quote }} AWS_SECRET_ACCESS_KEY={{ backup_secret_access_key | quote }} aws s3 cp backup-$(date --iso-8601=date).tar s3://dzhus-backups/
