@@ -6,10 +6,19 @@ resource "aws_s3_bucket" "backup" {
   bucket = var.backup_bucket
 }
 
-resource "aws_s3_bucket_versioning" "backup" {
+resource "aws_s3_bucket_lifecycle_configuration" "backup" {
   bucket = aws_s3_bucket.backup.id
-  versioning_configuration {
+
+  rule {
+    id     = "transition-all-to-glacier"
     status = "Enabled"
+
+    filter {}
+
+    transition {
+      days          = 0
+      storage_class = "DEEP_ARCHIVE"
+    }
   }
 }
 
