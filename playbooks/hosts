@@ -8,6 +8,7 @@ g4 ansible_host=192.168.4.33
 [syncthing]
 opi1
 opi2
+g4
 
 [telegraf:children]
 orangepi
@@ -16,3 +17,4 @@ orangepi
 
 [media]
 opi2
+g4
