@@ -1,9 +1,8 @@
+g4 ansible_host=192.168.4.33
+
 [orangepi]
 opi1 ansible_host=192.168.1.28 ansible_python_interpreter=/usr/bin/python3
 opi2 ansible_host=192.168.4.22 ansible_python_interpreter=/usr/bin/python3
-
-[all]
-g4 ansible_host=192.168.4.33
 
 [syncthing]
 opi1
@@ -12,6 +11,9 @@ g4
 
 [telegraf:children]
 orangepi
+
+[telegraf]
+g4
 
 [radio]
 
