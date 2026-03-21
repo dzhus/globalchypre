@@ -1,3 +1,0 @@
-- hosts: g4
-  roles:
-    - geerlingguy.docker

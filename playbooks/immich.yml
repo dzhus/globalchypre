@@ -7,7 +7,8 @@
     - name: backup_secret_access_key
       prompt: "Backup AWS secret access key"
       private: true
-
+  roles:
+    - geerlingguy.docker
   tasks:
     - name: Install awscli
       snap:
