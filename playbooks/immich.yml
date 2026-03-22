@@ -3,12 +3,13 @@
   roles:
     - geerlingguy.docker
   tasks:
-    - name: Ensure nightly Immich backup cron exists for dzhus
+    - name: Ensure weekly Immich backup cron exists for dzhus (Monday 04:00)
       cron:
         name: nightly immich backup
         user: dzhus
         minute: "0"
         hour: "4"
+        weekday: "1"
         job: >-
           cd ~dzhus/immich &&
           backup_name="backup-$(date --iso-8601=date).tar" &&
