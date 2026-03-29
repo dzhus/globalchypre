@@ -9,7 +9,7 @@
         path: /etc/minidlna.conf
         state: present
         regexp: '^media_dir'
-        line: 'media_dir=V,/var/lib/transmission-daemon/downloads'
+        line: 'media_dir=/var/lib/transmission-daemon/downloads'
       notify: Restart minidlna
   handlers:
     - name: Restart minidlna
