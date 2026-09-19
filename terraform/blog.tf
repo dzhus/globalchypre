@@ -1,21 +1,7 @@
-variable "new_site" {
-  default = "djouce.eu"
-}
-
 variable "site" {
   default = "dzhus.org"
 }
 
-resource "aws_s3_bucket" "new_site" {
-  bucket = var.new_site
-}
-
-resource "aws_s3_bucket_website_configuration" "new_site" {
-  bucket = aws_s3_bucket.new_site.id
-  redirect_all_requests_to {
-    host_name = aws_s3_bucket.site.bucket
-  }
-}
 
 resource "aws_s3_bucket" "site" {
   bucket = var.site
